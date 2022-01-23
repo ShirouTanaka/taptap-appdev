@@ -18,6 +18,8 @@ public class Hero {
     private Texture hero;
     private Sprite heroSprite;
 
+    private int baseDamage = 10;
+
 
     public Hero(int x, int y){
         position = new Vector3(x, y,0);
@@ -59,5 +61,13 @@ public class Hero {
 
     public Sprite getHeroSprite() {
         return heroSprite;
+    }
+
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
     }
 }

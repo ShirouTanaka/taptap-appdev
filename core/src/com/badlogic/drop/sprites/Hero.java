@@ -49,7 +49,7 @@ public class Hero {
     }
 
     public void jump(){
-        position.set(170, 400,0);
+        position.set(270, 400,0);
         velocity.y = 100;
     }
 

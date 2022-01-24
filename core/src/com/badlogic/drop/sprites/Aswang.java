@@ -1,5 +1,6 @@
 package com.badlogic.drop.sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
@@ -20,6 +21,17 @@ public class Aswang {
 
         aswang = new Texture("chunkyBoi.png");
         aswangSprite = new Sprite(aswang);
+    }
+
+
+    public void update(float deltaTime) {
+        if(position.x > 170){
+            position.add(-10, 0, 0);
+        }
+    }
+
+    public void shake() {
+        position.set(200, 400,0);
     }
 
     public Vector3 getPosition(){

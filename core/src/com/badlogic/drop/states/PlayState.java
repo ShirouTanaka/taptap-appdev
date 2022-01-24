@@ -5,17 +5,12 @@ import com.badlogic.drop.sprites.Aswang;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class PlayState extends State{
     //initialize images here
 
-//    private Texture hero;
+    //    private Texture hero;
 //    private Sprite heroSprite;
     private Hero jose;
     private Texture background;
@@ -43,6 +38,7 @@ public class PlayState extends State{
 
         if(Gdx.input.justTouched()){
             jose.jump();
+            chunkyBoi.shake();
             chunkyBoiHP = chunkyBoiHP - joseDMG;
             System.out.println("chunkyBoiHP: "+ chunkyBoiHP);
 
@@ -62,6 +58,7 @@ public class PlayState extends State{
     public void update(float deltaTime) {
         handleInput();
         jose.update(deltaTime);
+        chunkyBoi.update(deltaTime);
     }
 
     @Override

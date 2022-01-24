@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class TapCore extends ApplicationAdapter {
 
 	// FOR THE WEAK AND THE BROKEEEEN - Degs commit test ghub 2022
-	
+
 	//these are just basic params for the game
 	//remember all tests should be on the desktop first before the android device
 	public static final int width = 480;

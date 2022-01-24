@@ -48,7 +48,6 @@ public class TapCore extends ApplicationAdapter {
 	//reminder that all images should be on the assets folder; android > assets > paste (png pls)
 	@Override
 	public void render() {
-
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());//get the difference between render times first
 		gsm.render(batch);//now we draw it

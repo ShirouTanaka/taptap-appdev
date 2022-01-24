@@ -8,6 +8,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
+import javax.sound.sampled.SourceDataLine;
+
 public class Hero {
     //define the base stats here and the various movements
     //code below will define the jumping movement to attack the aswang
@@ -18,7 +20,7 @@ public class Hero {
     private Texture hero;
     private Sprite heroSprite;
 
-    private int baseDamage = 10;
+    private static int baseDamage = 10;
 
 
     public Hero(int x, int y){
@@ -28,7 +30,11 @@ public class Hero {
         hero = new Texture("hero.png");
 
         heroSprite = new Sprite(hero);
+    }
 
+    public static void strengthen(int test){
+        baseDamage = baseDamage + test;
+        System.out.println("NEW BASE DAMAGE = " + baseDamage);
     }
 
 

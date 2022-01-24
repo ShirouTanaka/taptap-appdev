@@ -31,6 +31,7 @@ public class PlayState extends State{
 
         //same we can add but based on shop upgrades
         joseDMG = jose.getBaseDamage();
+        System.out.println(jose.getBaseDamage());
     }
 
     @Override

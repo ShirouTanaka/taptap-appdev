@@ -57,7 +57,7 @@ public class MenuState extends State{
                 Vector3 tmp = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
                 camera.unproject(tmp);
 
-                Rectangle textureBounds=new Rectangle(playBtnRegion.getRegionX(),playBtnRegion.getRegionY(),playBtnRegion.getRegionWidth(), playBtnRegion.getRegionHeight());
+                Rectangle textureBounds=new Rectangle(playSprite.getRegionX()-(playSprite.getRegionWidth()/2),playSprite.getRegionY(),playSprite.getRegionWidth(), playSprite.getRegionHeight());
                 // texture x is the x position of the texture
                 // texture y is the y position of the texture
                 // texturewidth is the width of the texture (you can get it with texture.getWidth() or textureRegion.getRegionWidth() if you have a texture region

@@ -27,7 +27,6 @@ public class MenuState extends State{
     //initialize images here
     private Texture background;
     private Texture playBtn;
-    private TextureRegion playBtnRegion;
     private Texture title;
     private Sprite playSprite;
     OrthographicCamera camera;
@@ -40,7 +39,6 @@ public class MenuState extends State{
         background = new Texture("IMG-0365.png");
         playBtn = new Texture("playBtn.png");
         title = new Texture("tap_title.png");
-        playBtnRegion = new TextureRegion(playBtn);
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.translate((TapCore.width/2) - (playBtn.getWidth() / 2),  TapCore.height/2);

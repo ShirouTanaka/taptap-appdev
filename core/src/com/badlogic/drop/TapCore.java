@@ -23,8 +23,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 //the TapCore is the... well core... everything that is logic is here. Core... yea. U get it (- _ -   )
 public class TapCore extends ApplicationAdapter {
 
-	// FOR THE WEAK AND THE BROKEEEEN - Degs commit test ghub 2022
-
 	//these are just basic params for the game
 	//remember all tests should be on the desktop first before the android device
 	public static final int width = 480;
@@ -39,6 +37,7 @@ public class TapCore extends ApplicationAdapter {
 	//create is where we load the assets that we need but that's it. It just loads
 	@Override
 	public void create() {
+		System.out.println("HELLO");
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(1,0,0,1);
@@ -49,12 +48,9 @@ public class TapCore extends ApplicationAdapter {
 	//reminder that all images should be on the assets folder; android > assets > paste (png pls)
 	@Override
 	public void render() {
-
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());//get the difference between render times first
 		gsm.render(batch);//now we draw it
-
-
 	}
 
 	@Override

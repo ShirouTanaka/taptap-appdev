@@ -19,7 +19,7 @@ public class Aswang {
     public Aswang(int x, int y){
         position = new Vector3(x, y, 0);
 
-        aswang = new Texture("chunkyBoi.png");
+        aswang = new Texture("manananggal.png");
         aswangSprite = new Sprite(aswang);
     }
 

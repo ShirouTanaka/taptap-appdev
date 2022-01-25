@@ -3,6 +3,7 @@ package com.badlogic.drop.states;
 import com.badlogic.drop.TapCore;
 import com.badlogic.drop.sprites.Aswang;
 import com.badlogic.drop.sprites.Hero;
+import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,6 +20,9 @@ public class PlayState extends State{
     private int chunkyBoiHP;
     private int joseDMG;
 
+    //initiating timer test here
+    private Timer timer;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
 
@@ -26,32 +30,52 @@ public class PlayState extends State{
         chunkyBoi = new Aswang(170, 400);
         background = new Texture("IMG-0365.png");
 
+        //creating timer object
+        timer = new Timer();
+
         //we can add multipliers here based on stage number
         chunkyBoiHP = chunkyBoi.getBaseHealth();
 
         //same we can add but based on shop upgrades
         joseDMG = jose.getBaseDamage();
+        System.out.println(jose.getBaseDamage());
     }
 
     @Override
     protected void handleInput() {
-
         if(Gdx.input.justTouched()){
             jose.jump();
             chunkyBoi.shake();
             chunkyBoiHP = chunkyBoiHP - joseDMG;
             System.out.println("chunkyBoiHP: "+ chunkyBoiHP);
-
-            if(chunkyBoiHP <= 0){
-                System.out.println("chunkyBoi is dead :(");
-                System.out.println("Making a new and stronger chunkyBoi");
-
-                chunkyBoi.setBaseHealth(chunkyBoi.getBaseHealth()*2);
-                chunkyBoiHP = chunkyBoi.getBaseHealth();
-
-                System.out.println("new health is " + chunkyBoiHP);
-            }
         }
+
+        //the currentTime var is showing errors if forcing == 0
+        //there is a split second delay but barely noticeable
+        //this area runs and continuously monitors the state in deltaTime
+        //this is the winning statement
+        if (timer.currentTime > 0 && chunkyBoiHP <= 0){
+            System.out.println(chunkyBoiHP);
+            System.out.println("Chunkyboi is dead :( Resetting time now...");
+            timer.resetTime();
+        }
+
+        if (timer.currentTime < 0 && chunkyBoiHP > 0){
+            System.out.println("You lost my gamer");
+            //get back to menu
+
+        }
+
+        if(chunkyBoiHP <= 0){
+            System.out.println("chunkyBoi is dead :(");
+            System.out.println("Making a new and stronger chunkyBoi");
+
+            chunkyBoi.setBaseHealth(chunkyBoi.getBaseHealth()*2);
+            chunkyBoiHP = chunkyBoi.getBaseHealth();
+
+            System.out.println("new health is " + chunkyBoiHP);
+        }
+
     }
 
     @Override
@@ -69,6 +93,8 @@ public class PlayState extends State{
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
         sb.draw(chunkyBoi.getAswangSprite(), chunkyBoi.getPosition().x, chunkyBoi.getPosition().y);
         sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
+        //this is a test for the game's timer
+        timer.drawTime(sb);
         sb.end();
     }
 

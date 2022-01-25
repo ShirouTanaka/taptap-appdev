@@ -73,7 +73,7 @@ public class MenuState extends State{
                 // texturewidth is the width of the texture (you can get it with texture.getWidth() or textureRegion.getRegionWidth() if you have a texture region
                 // textureheight is the height of the texture (you can get it with texture.getHeight() or textureRegion.getRegionhHeight() if you have a texture region
                 if(playBounds.contains(tmp.x,tmp.y)) {
-                    gsm.set(new PlayState(gsm));
+//                    gsm.set(new PlayState(gsm));
                     System.out.println("button click");
                     System.out.println("moving to playState");
                     dispose();

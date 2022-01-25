@@ -14,7 +14,7 @@ public class Aswang {
     private Texture aswang;
     private Sprite aswangSprite;
 
-    private int baseHealth = 100;
+    private int baseHealth = 900;
 
     public Aswang(int x, int y){
         position = new Vector3(x, y, 0);

@@ -23,10 +23,10 @@ public class PlayState extends State{
     //initiating timer test here
     private Timer timer;
 
-    public PlayState(GameStateManager gsm) {
+    public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 
-        jose = new Hero( 170,80);
+        this.jose = xjose;
         chunkyBoi = new Aswang(170, 400);
         background = new Texture("IMG-0365.png");
 

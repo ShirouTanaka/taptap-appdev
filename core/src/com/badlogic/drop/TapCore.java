@@ -27,6 +27,7 @@ public class TapCore extends ApplicationAdapter {
 	//remember all tests should be on the desktop first before the android device
 	public static final int width = 480;
 	public static final int height = 800;
+	public static boolean heroFlag = false;
 
 	public static final String title = "Tap-A-Pon";
 

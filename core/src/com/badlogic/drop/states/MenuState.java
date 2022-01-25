@@ -1,6 +1,7 @@
 package com.badlogic.drop.states;
 
 import com.badlogic.drop.TapCore;
+import com.badlogic.drop.sprites.Hero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,6 +32,7 @@ public class MenuState extends State{
     private Sprite playSprite;
     private Texture storeButton;
     private Sprite storeSprite;
+    private Hero joseMain;
     OrthographicCamera camera;
     ExtendViewport viewport;
 
@@ -55,12 +57,18 @@ public class MenuState extends State{
         // - - > STORE SPRITE
         storeSprite = new Sprite(storeButton);
         storeSprite.setPosition((float) ((TapCore.width/2) - (playBtn.getWidth() / 2)), (float) (TapCore.height/2.9));
+
+        // - - > INITIALIZE MAIN JOSE FOR THE WHOLE GAME
+        if(TapCore.heroFlag == false){ // to be tested boolean flag status
+            joseMain = new Hero( 170,80);
+            TapCore.heroFlag = true;
+        }
     }
 
     @Override
     public void handleInput() {
 
-            if (Gdx.input.isTouched())
+            if (Gdx.input.justTouched())
             {
                 Vector3 tmp = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
                 camera.unproject(tmp);
@@ -73,7 +81,7 @@ public class MenuState extends State{
                 // texturewidth is the width of the texture (you can get it with texture.getWidth() or textureRegion.getRegionWidth() if you have a texture region
                 // textureheight is the height of the texture (you can get it with texture.getHeight() or textureRegion.getRegionhHeight() if you have a texture region
                 if(playBounds.contains(tmp.x,tmp.y)) {
-                    gsm.set(new PlayState(gsm));
+                    gsm.set(new PlayState(gsm, joseMain));
                     System.out.println("button click");
                     System.out.println("moving to playState");
                     dispose();

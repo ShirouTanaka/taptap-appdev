@@ -32,8 +32,13 @@ public class Hero {
         heroSprite = new Sprite(hero);
     }
 
-    public static void strengthen(int test){
-        baseDamage = baseDamage + test;
+    public static void upgrade1(int value){
+        baseDamage = baseDamage + value;
+        System.out.println("NEW BASE DAMAGE = " + baseDamage);
+    }
+
+    public static void upgrade3(int value){
+        baseDamage = baseDamage + value;
         System.out.println("NEW BASE DAMAGE = " + baseDamage);
     }
 
@@ -50,8 +55,6 @@ public class Hero {
             position.y = 80;
         }
         velocity.scl(1/deltaTime);
-
-
     }
 
     public void jump(){

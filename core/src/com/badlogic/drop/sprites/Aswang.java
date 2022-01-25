@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 
 import java.util.Vector;
 
@@ -15,15 +14,13 @@ public class Aswang {
     private Texture aswang;
     private Sprite aswangSprite;
 
-
-    private int baseHealth = 100;
+    private int baseHealth = 900;
 
     public Aswang(int x, int y){
         position = new Vector3(x, y, 0);
 
         aswang = new Texture("manananggal.png");
         aswangSprite = new Sprite(aswang);
-
     }
 
 

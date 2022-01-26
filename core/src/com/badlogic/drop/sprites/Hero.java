@@ -20,8 +20,8 @@ public class Hero {
     private Texture hero;
     private Sprite heroSprite;
 
-    private final int baseDamage = 10;
-    private static int currentDamage;
+    private static final int baseDamage = 10;
+    private static int currentDamage = baseDamage;
 
 
     public Hero(int x, int y){
@@ -31,7 +31,6 @@ public class Hero {
         hero = new Texture("hero.png");
 
         heroSprite = new Sprite(hero);
-        currentDamage = baseDamage;
     }
 
     public static void upgrade1(int value){
@@ -40,7 +39,7 @@ public class Hero {
     }
 
     public static void upgrade3(int value){
-        currentDamage = currentDamage + value;
+        currentDamage = currentDamage*(value);
         System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 

@@ -5,8 +5,13 @@ import com.badlogic.drop.sprites.Engkanto;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class PlayState extends State{
     //initialize images here
@@ -23,6 +28,14 @@ public class PlayState extends State{
     //initiating timer test here
     private Timer timer;
 
+    //back to menu
+    private Sprite backSprite;
+    private Texture backButton;
+
+    //camera
+    OrthographicCamera camera;
+    ExtendViewport viewport;
+
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 
@@ -33,8 +46,20 @@ public class PlayState extends State{
         //creating timer object
         timer = new Timer();
 
+        //back to Menu
+        backButton = new Texture("back.png");
+        // BACK BUTTON SPRITE
+        backSprite = new Sprite(backButton);
+        backSprite.setPosition((float) ((TapCore.width/6) - (backButton.getWidth()+10)),(float) (TapCore.height)-(70));
+
+        // - - > CAMERA
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.translate((TapCore.width/2),  TapCore.height/2);
+        viewport = new ExtendViewport(TapCore.width, TapCore.height, camera);
+
         //we can add multipliers here based on stage number
         chunkyBoiHP = chunkyBoi.getBaseHealth();
+
 
         //same we can add but based on shop upgrades
         joseDMG = jose.getCurrentDamage();
@@ -44,10 +69,21 @@ public class PlayState extends State{
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()){
+            Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+            camera.unproject(tmpPlay);
+
+            Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(215),backSprite.getRegionY()+(335),backSprite.getRegionWidth(), backSprite.getRegionHeight());
+
             jose.jump();
             chunkyBoi.shake();
             chunkyBoiHP = chunkyBoiHP - joseDMG;
             System.out.println("chunkyBoiHP: "+ chunkyBoiHP);
+
+
+            if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
+            System.out.println("BACK BUTTON CLICKED");
+            gsm.set(new MenuState(gsm));
+            }
         }
 
         //the currentTime var is showing errors if forcing == 0
@@ -76,6 +112,8 @@ public class PlayState extends State{
             System.out.println("new health is " + chunkyBoiHP);
         }
 
+
+
     }
 
     @Override
@@ -94,6 +132,7 @@ public class PlayState extends State{
         sb.draw(chunkyBoi.getEngkantoSprite(), chunkyBoi.getPosition().x, chunkyBoi.getPosition().y);
         sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
         //this is a test for the game's timer
+        backSprite.draw(sb);
         timer.drawTime(sb);
         sb.end();
     }

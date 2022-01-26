@@ -21,8 +21,8 @@ public class Hero {
     private Sprite heroSprite;
     private static int money = 1000;
 
-    private final int baseDamage = 10;
-    private static int currentDamage;
+    private static final int baseDamage = 10;
+    private static int currentDamage = baseDamage;
 
 
     public Hero(int x, int y){
@@ -32,7 +32,6 @@ public class Hero {
         hero = new Texture("hero.png");
 
         heroSprite = new Sprite(hero);
-        currentDamage = baseDamage;
     }
 
     public static void upgrade1(int value){

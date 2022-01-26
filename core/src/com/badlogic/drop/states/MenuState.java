@@ -59,10 +59,7 @@ public class MenuState extends State{
         storeSprite.setPosition((float) ((TapCore.width/2) - (playBtn.getWidth() / 2)), (float) (TapCore.height/2.9));
 
         // - - > INITIALIZE MAIN JOSE FOR THE WHOLE GAME
-//        if(TapCore.heroFlag == false){ // to be tested boolean flag status    --> Causes Errors but once removed everything works.
-            joseMain = new Hero( 170,80);
-//            TapCore.heroFlag = true;
-//        }
+        joseMain = new Hero( 170,80);
     }
 
     @Override

@@ -30,7 +30,6 @@ public class PlayState extends State{
     private int engkantoHP;
     private int joseDMG;
     private int baseMoney = 10;
-    private double moneyScaler = 1.0; // 100%
 
     //initiating timer test here
     private Timer timer;
@@ -99,8 +98,10 @@ public class PlayState extends State{
             engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
 
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
-            System.out.println("BACK BUTTON CLICKED");
-            gsm.set(new MenuState(gsm));
+                System.out.println("BACK BUTTON CLICKED");
+                gsm.set(new MenuState(gsm));
+                engkanto.setBaseHealth(900); // RESET FOR EASIER GRIND
+                Hero.resetMoneyScaler();
             }
         }
 
@@ -116,29 +117,23 @@ public class PlayState extends State{
 
         if (timer.currentTime < 0 && engkantoHP > 0){
             System.out.println("You lost my gamer");
+            engkanto.setBaseHealth(900);
+            Hero.resetMoneyScaler();
             gsm.set(new MenuState(gsm));
         }
 
-<<<<<<< HEAD
-        if(chunkyBoiHP <= 0){ // IF ENEMY IS DEAD
-=======
         if(engkantoHP <= 0){
->>>>>>> 48ed164fe028e5149dc0a3b35a5b69a63d7c024a
             System.out.println("chunkyBoi is dead :(");
             System.out.println("Making a new and stronger chunkyBoi");
 
             engkanto.setBaseHealth(engkanto.getBaseHealth()*2);
             engkantoHP = engkanto.getBaseHealth();
 
-<<<<<<< HEAD
-            System.out.println("new health is " + chunkyBoiHP);
+            System.out.println("new health is " + engkantoHP);
 
             // GIVE MONEY TO JOSE UPON DEFEATING ENEMY
-            jose.addMoney((int)(baseMoney * moneyScaler));
-            moneyScaler += 0.3;
-=======
-            System.out.println("new health is " + engkantoHP);
->>>>>>> 48ed164fe028e5149dc0a3b35a5b69a63d7c024a
+            jose.addMoney((int)(baseMoney * Hero.getMoneyScale()));
+            Hero.increaseMoneyScaler();
         }
     }
 
@@ -152,8 +147,6 @@ public class PlayState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-//        sb.draw(hero,(TapCore.width/2) - (hero.getWidth() / 2), (TapCore.height/2) - 200);
-//        heroSprite.draw(sb);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
         sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y);
         sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);

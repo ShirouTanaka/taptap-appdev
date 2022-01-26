@@ -19,9 +19,13 @@ public class Hero {
 
     private Texture hero;
     private Sprite heroSprite;
+    private static double baseMoneyScaler = 1.0; // 100%
+    private static double upgrade2Holder = 0.0;
+    private static double currentMoneyScaler = baseMoneyScaler;
+    private static boolean upgrade2flag = false;
     private static int money = 0;
 
-    private static final int baseDamage = 10;
+    private static final int baseDamage = 15;
     private static int currentDamage = baseDamage;
 
 
@@ -39,16 +43,15 @@ public class Hero {
         System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 
-<<<<<<< HEAD
-    public static void upgrade3(){
-        currentDamage *= 2;
-=======
-    public static void upgrade3(int value){
-        currentDamage = currentDamage*(value);
->>>>>>> 48ed164fe028e5149dc0a3b35a5b69a63d7c024a
-        System.out.println("NEW BASE DAMAGE = " + currentDamage);
+    public static void upgrade2(){
+        upgrade2Holder += 2.0;
+        currentMoneyScaler += upgrade2Holder;
+        upgrade2flag = true;
     }
 
+    public static void upgrade3() {
+        currentDamage *= 2;
+    }
 
     public void update(float deltaTime){
         if(position.y > 80){
@@ -68,8 +71,6 @@ public class Hero {
         position.set(170, 400,0);
         velocity.y = 100;
     }
-
-
 
     public Vector3 getPosition() {
         return position;
@@ -102,5 +103,19 @@ public class Hero {
 
     public static int getMoneyInt(){
         return money;
+    }
+
+    public static double getMoneyScale(){
+        return currentMoneyScaler;
+    }
+    public static void increaseMoneyScaler(){
+        currentMoneyScaler += 0.3;
+    }
+    public static void resetMoneyScaler(){
+        if(upgrade2flag == false){ // IF UPGRADE 2 IS NOT YET BOUGHT
+            currentMoneyScaler = baseMoneyScaler;
+        }else{
+            currentMoneyScaler = upgrade2Holder;
+        }
     }
 }

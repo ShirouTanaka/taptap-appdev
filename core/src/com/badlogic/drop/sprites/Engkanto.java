@@ -48,6 +48,10 @@ public class Engkanto {
         return baseHealth;
     }
 
+    public static String getEngkantoHealth(int baseHealth){
+        String value = String.valueOf("Engkanto Health: " + baseHealth);
+        return value;
+    }
     public void setBaseHealth(int baseHealth) {
         this.baseHealth = baseHealth;
     }

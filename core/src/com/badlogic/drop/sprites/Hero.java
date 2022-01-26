@@ -40,7 +40,7 @@ public class Hero {
     }
 
     public static void upgrade3(int value){
-        currentDamage = currentDamage + value;
+        currentDamage = currentDamage*(value);
         System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 

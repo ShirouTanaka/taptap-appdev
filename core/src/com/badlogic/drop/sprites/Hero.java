@@ -39,8 +39,13 @@ public class Hero {
         System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 
+<<<<<<< HEAD
     public static void upgrade3(){
         currentDamage *= 2;
+=======
+    public static void upgrade3(int value){
+        currentDamage = currentDamage*(value);
+>>>>>>> 48ed164fe028e5149dc0a3b35a5b69a63d7c024a
         System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 

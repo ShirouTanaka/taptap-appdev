@@ -18,7 +18,7 @@ public class Timer {
     public void drawTime(SpriteBatch sb) {
         currentTime -= Gdx.graphics.getDeltaTime();
         str = Float.toString(currentTime);
-        font.draw(sb, str, 225, 750);
+        font.draw(sb, str, 225, 734);
     }
 
     public void resetTime(){

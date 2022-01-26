@@ -88,7 +88,7 @@ public class StoreState extends State{
             Rectangle upgrade1Bounds = new Rectangle(buySprite1.getRegionX()-(180),buySprite1.getRegionY()-(70),buySprite1.getRegionWidth(), buySprite1.getRegionHeight());
             Rectangle upgrade2Bounds = new Rectangle(buySprite2.getRegionX()+(60),buySprite2.getRegionY()-(70),buySprite2.getRegionWidth(), buySprite2.getRegionHeight());
             Rectangle upgrade3Bounds = new Rectangle(buySprite3.getRegionX()-(buySprite3.getRegionWidth()/2),buySprite3.getRegionY()-(375),buySprite3.getRegionWidth(), buySprite3.getRegionHeight());
-            Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(190),backSprite.getRegionY()+(290),backSprite.getRegionWidth(), backSprite.getRegionHeight());
+            Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(190),backSprite.getRegionY()+(280),backSprite.getRegionWidth(), backSprite.getRegionHeight());
 
             if(upgrade1Bounds.contains(tmpStore.x, tmpStore.y)) {
                 System.out.println("UPGRADE 1 CLICKED");
@@ -107,6 +107,7 @@ public class StoreState extends State{
             } if(upgrade3Bounds.contains(tmpStore.x,tmpStore.y)){
                 System.out.println("UPGRADE 3 CLICKED");
                 // MALAKAS' COURAGE
+<<<<<<< HEAD
                 if(Hero.getMoneyInt() >= 500){ // CAN PURCHASE
                     Hero.upgrade3();
                     Hero.setHeroMoney(Hero.getMoneyInt()-500);
@@ -114,6 +115,9 @@ public class StoreState extends State{
                 }else{
                     System.out.println("INSUFFICIENT MONEY");
                 }
+=======
+                Hero.upgrade3(2);
+>>>>>>> 48ed164fe028e5149dc0a3b35a5b69a63d7c024a
 
             } if(backBounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("BACK BUTTON CLICKED");

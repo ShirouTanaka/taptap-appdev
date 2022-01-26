@@ -20,7 +20,7 @@ public class Animation {
         frame = 0;
 
     }
-    //sex
+    //car sex
     public void update(float dt){
         currentFrameTime += dt;
         if(currentFrameTime > maxFrameTime){

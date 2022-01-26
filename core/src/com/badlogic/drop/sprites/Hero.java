@@ -19,9 +19,10 @@ public class Hero {
 
     private Texture hero;
     private Sprite heroSprite;
+    private static int money = 1000;
 
-    private final int baseDamage = 10;
-    private static int currentDamage;
+    private static final int baseDamage = 10;
+    private static int currentDamage = baseDamage;
 
 
     public Hero(int x, int y){
@@ -31,7 +32,6 @@ public class Hero {
         hero = new Texture("hero.png");
 
         heroSprite = new Sprite(hero);
-        currentDamage = baseDamage;
     }
 
     public static void upgrade1(int value){
@@ -80,5 +80,18 @@ public class Hero {
 
     public void setCurrentDamage(int currentDamage) {
         this.currentDamage = currentDamage;
+    }
+
+    public static void setHeroMoney(int newValue){
+        money = newValue;
+    }
+
+    public static String getHeroMoney(){
+        String value = String.valueOf(money) + " Choc";
+        return value;
+    }
+
+    public static int getMoneyInt(){
+        return money;
     }
 }

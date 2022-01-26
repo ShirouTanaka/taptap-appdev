@@ -103,11 +103,25 @@ public class StoreState extends State{
 
             } if(upgrade2Bounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("UPGRADE 2 CLICKED");
+                // MAKILING'S AID
+                if(Hero.getMoneyInt() >= 500){
+                    Hero.upgrade2();
+                    Hero.setHeroMoney(Hero.getMoneyInt()-500);
+                    moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
+                }else{
+                    System.out.println("INSUFFICIENT MONEY");
+                }
 
             } if(upgrade3Bounds.contains(tmpStore.x,tmpStore.y)){
                 System.out.println("UPGRADE 3 CLICKED");
                 // MALAKAS' COURAGE
-                Hero.upgrade3(2);
+                if(Hero.getMoneyInt() >= 1000){ // CAN PURCHASE
+                    Hero.upgrade3();
+                    Hero.setHeroMoney(Hero.getMoneyInt()-1000);
+                    moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
+                }else{
+                    System.out.println("INSUFFICIENT MONEY");
+                }
 
             } if(backBounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("BACK BUTTON CLICKED");

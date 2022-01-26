@@ -29,6 +29,7 @@ public class PlayState extends State{
 
     private int engkantoHP;
     private int joseDMG;
+    private int baseMoney = 10;
 
     //initiating timer test here
     private Timer timer;
@@ -97,8 +98,10 @@ public class PlayState extends State{
             engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
 
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
-            System.out.println("BACK BUTTON CLICKED");
-            gsm.set(new MenuState(gsm));
+                System.out.println("BACK BUTTON CLICKED");
+                gsm.set(new MenuState(gsm));
+                engkanto.setBaseHealth(900); // RESET FOR EASIER GRIND
+                Hero.resetMoneyScaler();
             }
         }
 
@@ -114,6 +117,8 @@ public class PlayState extends State{
 
         if (timer.currentTime < 0 && engkantoHP > 0){
             System.out.println("You lost my gamer");
+            engkanto.setBaseHealth(900);
+            Hero.resetMoneyScaler();
             gsm.set(new MenuState(gsm));
         }
 
@@ -125,6 +130,10 @@ public class PlayState extends State{
             engkantoHP = engkanto.getBaseHealth();
 
             System.out.println("new health is " + engkantoHP);
+
+            // GIVE MONEY TO JOSE UPON DEFEATING ENEMY
+            jose.addMoney((int)(baseMoney * Hero.getMoneyScale()));
+            Hero.increaseMoneyScaler();
         }
     }
 
@@ -138,8 +147,6 @@ public class PlayState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-//        sb.draw(hero,(TapCore.width/2) - (hero.getWidth() / 2), (TapCore.height/2) - 200);
-//        heroSprite.draw(sb);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
         sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y);
         sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);

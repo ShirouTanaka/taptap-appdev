@@ -153,7 +153,7 @@ public class PlayState extends State{
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
         sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y);
         if(Gdx.input.isTouched()){
-
+            sb.draw(engkanto.getTexture(), engkanto.getPosition().x+50, engkanto.getPosition().y);
             sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);
         }else{
 

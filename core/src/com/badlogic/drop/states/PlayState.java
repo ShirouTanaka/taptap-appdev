@@ -82,6 +82,8 @@ public class PlayState extends State{
 
     @Override
     protected void handleInput() {
+        
+        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
         if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             camera.unproject(tmpPlay);

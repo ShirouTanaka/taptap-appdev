@@ -59,39 +59,39 @@ public class MenuState extends State{
         storeSprite.setPosition((float) ((TapCore.width/2) - (playBtn.getWidth() / 2)), (float) (TapCore.height/2.9));
 
         // - - > INITIALIZE MAIN JOSE FOR THE WHOLE GAME
-        if(TapCore.heroFlag == false){ // to be tested boolean flag status
+//        if(TapCore.heroFlag == false){ // to be tested boolean flag status    --> Causes Errors but once removed everything works.
             joseMain = new Hero( 170,80);
-            TapCore.heroFlag = true;
-        }
+//            TapCore.heroFlag = true;
+//        }
     }
 
     @Override
     public void handleInput() {
 
-            if (Gdx.input.justTouched())
-            {
-                Vector3 tmp = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
-                camera.unproject(tmp);
+        if (Gdx.input.justTouched())
+        {
+            Vector3 tmp = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+            camera.unproject(tmp);
 
-                Rectangle playBounds=new Rectangle(playSprite.getRegionX()-(playSprite.getRegionWidth()/2),playSprite.getRegionY(),playSprite.getRegionWidth(), playSprite.getRegionHeight());
-                Rectangle storeBounds=new Rectangle(storeSprite.getRegionX()-(storeSprite.getRegionWidth()/2),storeSprite.getRegionY()-(storeSprite.getRegionHeight()),storeSprite.getRegionWidth(), storeSprite.getRegionHeight());
+            Rectangle playBounds=new Rectangle(playSprite.getRegionX()-(playSprite.getRegionWidth()/2),playSprite.getRegionY(),playSprite.getRegionWidth(), playSprite.getRegionHeight());
+            Rectangle storeBounds=new Rectangle(storeSprite.getRegionX()-(storeSprite.getRegionWidth()/2),storeSprite.getRegionY()-(storeSprite.getRegionHeight()),storeSprite.getRegionWidth(), storeSprite.getRegionHeight());
 
-                // texture x is the x position of the texture
-                // texture y is the y position of the texture
-                // texturewidth is the width of the texture (you can get it with texture.getWidth() or textureRegion.getRegionWidth() if you have a texture region
-                // textureheight is the height of the texture (you can get it with texture.getHeight() or textureRegion.getRegionhHeight() if you have a texture region
-                if(playBounds.contains(tmp.x,tmp.y)) {
-                    gsm.set(new PlayState(gsm, joseMain));
-                    System.out.println("button click");
-                    System.out.println("moving to playState");
-                    dispose();
-                }
-                if(storeBounds.contains(tmp.x,tmp.y)){
-                    gsm.set(new StoreState(gsm));
-                    System.out.println("BUTTON CLICK STORE");
-                    dispose();
-                }
+            // texture x is the x position of the texture
+            // texture y is the y position of the texture
+            // texturewidth is the width of the texture (you can get it with texture.getWidth() or textureRegion.getRegionWidth() if you have a texture region
+            // textureheight is the height of the texture (you can get it with texture.getHeight() or textureRegion.getRegionhHeight() if you have a texture region
+            if(playBounds.contains(tmp.x,tmp.y)) {
+                gsm.set(new PlayState(gsm,joseMain));
+                System.out.println("button click");
+                System.out.println("moving to playState");
+                dispose();
             }
+            if(storeBounds.contains(tmp.x,tmp.y)){
+                gsm.set(new StoreState(gsm));
+                System.out.println("BUTTON CLICK STORE");
+                dispose();
+            }
+        }
     }
 
     @Override

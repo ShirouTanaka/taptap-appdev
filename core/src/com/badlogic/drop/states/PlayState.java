@@ -1,7 +1,7 @@
 package com.badlogic.drop.states;
 
 import com.badlogic.drop.TapCore;
-import com.badlogic.drop.sprites.Aswang;
+import com.badlogic.drop.sprites.Engkanto;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
@@ -15,7 +15,7 @@ public class PlayState extends State{
 //    private Sprite heroSprite;
     private Hero jose;
     private Texture background;
-    private Aswang chunkyBoi;
+    private Engkanto chunkyBoi;
 
     private int chunkyBoiHP;
     private int joseDMG;
@@ -27,7 +27,7 @@ public class PlayState extends State{
         super(gsm);
 
         this.jose = xjose;
-        chunkyBoi = new Aswang(170, 400);
+        chunkyBoi = new Engkanto(170, 400);
         background = new Texture("IMG-0365.png");
 
         //creating timer object
@@ -37,8 +37,8 @@ public class PlayState extends State{
         chunkyBoiHP = chunkyBoi.getBaseHealth();
 
         //same we can add but based on shop upgrades
-        joseDMG = jose.getBaseDamage();
-        System.out.println(jose.getBaseDamage());
+        joseDMG = jose.getCurrentDamage();
+        System.out.println(jose.getCurrentDamage());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class PlayState extends State{
 
         if (timer.currentTime < 0 && chunkyBoiHP > 0){
             System.out.println("You lost my gamer");
-            //get back to menu
+            gsm.set(new MenuState(gsm));
 
         }
 
@@ -91,7 +91,7 @@ public class PlayState extends State{
 //        sb.draw(hero,(TapCore.width/2) - (hero.getWidth() / 2), (TapCore.height/2) - 200);
 //        heroSprite.draw(sb);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-        sb.draw(chunkyBoi.getAswangSprite(), chunkyBoi.getPosition().x, chunkyBoi.getPosition().y);
+        sb.draw(chunkyBoi.getEngkantoSprite(), chunkyBoi.getPosition().x, chunkyBoi.getPosition().y);
         sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
         //this is a test for the game's timer
         timer.drawTime(sb);

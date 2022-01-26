@@ -85,9 +85,9 @@ public class StoreState extends State{
             Vector3 tmpStore = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             camera.unproject(tmpStore);
 
-            Rectangle upgrade1Bounds = new Rectangle(buySprite1.getRegionX()-(180),buySprite1.getRegionY()-(40),buySprite1.getRegionWidth(), buySprite1.getRegionHeight());
-            Rectangle upgrade2Bounds = new Rectangle(buySprite2.getRegionX()+(60),buySprite2.getRegionY()-(40),buySprite2.getRegionWidth(), buySprite2.getRegionHeight());
-            Rectangle upgrade3Bounds = new Rectangle(buySprite3.getRegionX()-(buySprite3.getRegionWidth()/2),buySprite3.getRegionY()-(345),buySprite3.getRegionWidth(), buySprite3.getRegionHeight());
+            Rectangle upgrade1Bounds = new Rectangle(buySprite1.getRegionX()-(180),buySprite1.getRegionY()-(70),buySprite1.getRegionWidth(), buySprite1.getRegionHeight());
+            Rectangle upgrade2Bounds = new Rectangle(buySprite2.getRegionX()+(60),buySprite2.getRegionY()-(70),buySprite2.getRegionWidth(), buySprite2.getRegionHeight());
+            Rectangle upgrade3Bounds = new Rectangle(buySprite3.getRegionX()-(buySprite3.getRegionWidth()/2),buySprite3.getRegionY()-(375),buySprite3.getRegionWidth(), buySprite3.getRegionHeight());
             Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(190),backSprite.getRegionY()+(290),backSprite.getRegionWidth(), backSprite.getRegionHeight());
 
             if(upgrade1Bounds.contains(tmpStore.x, tmpStore.y)) {
@@ -111,6 +111,7 @@ public class StoreState extends State{
 
             } if(backBounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("BACK BUTTON CLICKED");
+                gsm.set(new MenuState(gsm));
             }
 
         }

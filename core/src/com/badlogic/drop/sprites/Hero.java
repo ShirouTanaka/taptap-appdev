@@ -2,6 +2,8 @@ package com.badlogic.drop.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.Timer;
@@ -16,9 +18,11 @@ public class Hero {
     private static final int gravity = -15;
     private Vector3 position;
     private Vector3 velocity;
-
+    private Animation heroAnimation;
     private Texture hero;
     private Sprite heroSprite;
+    private Rectangle bounds;
+    boolean attacking = false;
     private static double baseMoneyScaler = 1.0; // 100%
     private static double upgrade2Holder = 0.0;
     private static double currentMoneyScaler = baseMoneyScaler;
@@ -27,15 +31,22 @@ public class Hero {
 
     private static final int baseDamage = 15;
     private static int currentDamage = baseDamage;
+    private Texture texture;
 
 
     public Hero(int x, int y){
         position = new Vector3(x, y,0);
         velocity = new Vector3(0, 0, 0);
 
+        //idle
         hero = new Texture("hero.png");
-
         heroSprite = new Sprite(hero);
+
+        //animation
+        texture = new Texture("atk-set.png");
+        heroAnimation = new Animation(new TextureRegion(texture), 2,0.5f);
+        bounds= new Rectangle(x,y,texture.getWidth()/2, texture.getHeight());
+
     }
 
     public static void upgrade1(int value){
@@ -54,6 +65,8 @@ public class Hero {
     }
 
     public void update(float deltaTime){
+        heroAnimation.update(deltaTime);
+
         if(position.y > 80){
             velocity.add(0, gravity,0);
         }
@@ -71,6 +84,12 @@ public class Hero {
         position.set(170, 400,0);
         velocity.y = 100;
     }
+
+    public TextureRegion getTexture(){
+        return heroAnimation.getFrame();
+    }
+    public Rectangle getBounds(){return bounds;}
+    public void dispose() {texture.dispose();}
 
     public Vector3 getPosition() {
         return position;

@@ -25,6 +25,9 @@ public class PlayState extends State{
 //    private Sprite heroSprite;
     private Hero jose;
     private Texture background;
+    private Engkanto chunkyBoi;
+    public boolean attacking;
+    private int chunkyBoiHP;
     private Engkanto engkanto;
 
     private int engkantoHP;
@@ -83,7 +86,7 @@ public class PlayState extends State{
 
     @Override
     protected void handleInput() {
-        
+
         engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
         if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
@@ -149,7 +152,13 @@ public class PlayState extends State{
         sb.begin();
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
         sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y);
-        sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
+        if(Gdx.input.isTouched()){
+
+            sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);
+        }else{
+
+            sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
+        }
         //this is a test for the game's timer
         engkantoHealth.draw(sb, (float)(100));
         backSprite.draw(sb);

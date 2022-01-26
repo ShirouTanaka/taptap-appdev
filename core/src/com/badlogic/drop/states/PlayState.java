@@ -19,6 +19,8 @@ public class PlayState extends State{
 
     private int chunkyBoiHP;
     private int joseDMG;
+    private int baseMoney = 10;
+    private double moneyScaler = 1.0; // 100%
 
     //initiating timer test here
     private Timer timer;
@@ -66,7 +68,7 @@ public class PlayState extends State{
 
         }
 
-        if(chunkyBoiHP <= 0){
+        if(chunkyBoiHP <= 0){ // IF ENEMY IS DEAD
             System.out.println("chunkyBoi is dead :(");
             System.out.println("Making a new and stronger chunkyBoi");
 
@@ -74,6 +76,10 @@ public class PlayState extends State{
             chunkyBoiHP = chunkyBoi.getBaseHealth();
 
             System.out.println("new health is " + chunkyBoiHP);
+
+            // GIVE MONEY TO JOSE UPON DEFEATING ENEMY
+            jose.addMoney((int)(baseMoney * moneyScaler));
+            moneyScaler += 0.3;
         }
 
     }

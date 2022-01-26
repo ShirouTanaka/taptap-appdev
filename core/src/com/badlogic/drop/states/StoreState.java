@@ -107,7 +107,13 @@ public class StoreState extends State{
             } if(upgrade3Bounds.contains(tmpStore.x,tmpStore.y)){
                 System.out.println("UPGRADE 3 CLICKED");
                 // MALAKAS' COURAGE
-                Hero.upgrade3(500);
+                if(Hero.getMoneyInt() >= 500){ // CAN PURCHASE
+                    Hero.upgrade3();
+                    Hero.setHeroMoney(Hero.getMoneyInt()-500);
+                    moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
+                }else{
+                    System.out.println("INSUFFICIENT MONEY");
+                }
 
             } if(backBounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("BACK BUTTON CLICKED");

@@ -19,7 +19,7 @@ public class Hero {
 
     private Texture hero;
     private Sprite heroSprite;
-    private static int money = 1000;
+    private static int money = 0;
 
     private static final int baseDamage = 10;
     private static int currentDamage = baseDamage;
@@ -39,8 +39,8 @@ public class Hero {
         System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 
-    public static void upgrade3(int value){
-        currentDamage = currentDamage + value;
+    public static void upgrade3(){
+        currentDamage *= 2;
         System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 
@@ -84,6 +84,10 @@ public class Hero {
 
     public static void setHeroMoney(int newValue){
         money = newValue;
+    }
+
+    public void addMoney(int value){
+        money += value;
     }
 
     public static String getHeroMoney(){

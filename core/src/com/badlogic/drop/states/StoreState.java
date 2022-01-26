@@ -3,12 +3,15 @@ package com.badlogic.drop.states;
 import com.badlogic.drop.TapCore;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class StoreState extends State{
@@ -17,6 +20,7 @@ public class StoreState extends State{
     private Texture upgrade1;
     private Texture upgrade2;
     private Texture upgrade3;
+    private Texture chocnut;
     // TEXTURE & SPRITES
     private Sprite backSprite;
     private Texture backButton;
@@ -28,6 +32,8 @@ public class StoreState extends State{
     private Texture buyButton3;
     OrthographicCamera camera;
     ExtendViewport viewport;
+    private Label moneyCount;
+    private BitmapFont font;
 
     protected StoreState(GameStateManager gsm) {
         super(gsm);
@@ -39,6 +45,7 @@ public class StoreState extends State{
         buyButton1 = new Texture("buybutton.png");
         buyButton2 = new Texture("buybutton.png");
         buyButton3 = new Texture("buybutton.png");
+        chocnut = new Texture("choc.png");
 
         // UPGRADES
         upgrade1 = new Texture("upgrade1.png");
@@ -64,9 +71,12 @@ public class StoreState extends State{
 
         // BUY BUTTON 3 SPRITE
         buySprite3 = new Sprite(buyButton3);
-        buySprite3.setPosition((float) (TapCore.width/2) - (66), (float) ((TapCore.height/2)-375));
+        buySprite3.setPosition((float) (TapCore.width/2) - (64), (float) ((TapCore.height/2)-375));
 
-
+        // MONEY COUNT LABEL
+        font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
+        moneyCount = new Label(Hero.getHeroMoney(), new Label.LabelStyle(font, Color.WHITE));
+        moneyCount.setPosition((TapCore.width/2) - (29), ((TapCore.height/2)+222));
     }
 
     @Override
@@ -83,7 +93,13 @@ public class StoreState extends State{
             if(upgrade1Bounds.contains(tmpStore.x, tmpStore.y)) {
                 System.out.println("UPGRADE 1 CLICKED");
                 // SANTELMO'S CURSE
-                Hero.upgrade1(100); // this works so far
+                if(Hero.getMoneyInt() >= 100){ // CAN PURCHASE
+                    Hero.upgrade1(100);
+                    Hero.setHeroMoney(Hero.getMoneyInt()-100);
+                    moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
+                }else{
+                    System.out.println("MONEY IS INSUFFICIENT");
+                }
 
             } if(upgrade2Bounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("UPGRADE 2 CLICKED");
@@ -112,11 +128,13 @@ public class StoreState extends State{
         // draw textures and sprites
         sb.draw(storeBackground, 0,0, TapCore.width, TapCore.height);
         sb.draw(storeTitle, (TapCore.width/2) - (storeTitle.getWidth() / 2), ((TapCore.height/2)+260));
+        sb.draw(chocnut, (TapCore.width/2) - (72), ((TapCore.height/2)+220));
 
         // UPGRADES RENDER
         sb.draw(upgrade1, (TapCore.width/4) - (upgrade1.getWidth() / 2), ((TapCore.height/2)-20));
         sb.draw(upgrade2, (TapCore.width/2) + (upgrade2.getWidth() / 3), ((TapCore.height/2)-20));
         sb.draw(upgrade3, (TapCore.width/2) - (upgrade3.getWidth() / 2), ((TapCore.height/2)-320));
+        moneyCount.draw(sb, (float)(100));
 
         backSprite.draw(sb); // DRAW BACK BUTTON
         buySprite1.draw(sb);
@@ -136,5 +154,6 @@ public class StoreState extends State{
         buyButton1.dispose();
         buyButton2.dispose();
         buyButton3.dispose();
+        chocnut.dispose();
     }
 }

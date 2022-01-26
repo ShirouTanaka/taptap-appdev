@@ -19,6 +19,7 @@ public class Hero {
 
     private Texture hero;
     private Sprite heroSprite;
+    private static int money = 1000;
 
     private static int baseDamage = 10;
 
@@ -78,5 +79,18 @@ public class Hero {
 
     public void setBaseDamage(int baseDamage) {
         this.baseDamage = baseDamage;
+    }
+
+    public static void setHeroMoney(int newValue){
+        money = newValue;
+    }
+
+    public static String getHeroMoney(){
+        String value = String.valueOf(money) + " Choc";
+        return value;
+    }
+
+    public static int getMoneyInt(){
+        return money;
     }
 }

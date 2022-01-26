@@ -20,7 +20,8 @@ public class Hero {
     private Texture hero;
     private Sprite heroSprite;
 
-    private static int baseDamage = 10;
+    private final int baseDamage = 10;
+    private static int currentDamage;
 
 
     public Hero(int x, int y){
@@ -30,16 +31,17 @@ public class Hero {
         hero = new Texture("hero.png");
 
         heroSprite = new Sprite(hero);
+        currentDamage = baseDamage;
     }
 
     public static void upgrade1(int value){
-        baseDamage = baseDamage + value;
-        System.out.println("NEW BASE DAMAGE = " + baseDamage);
+        currentDamage = currentDamage + value;
+        System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 
     public static void upgrade3(int value){
-        baseDamage = baseDamage + value;
-        System.out.println("NEW BASE DAMAGE = " + baseDamage);
+        currentDamage = currentDamage + value;
+        System.out.println("NEW BASE DAMAGE = " + currentDamage);
     }
 
 
@@ -58,7 +60,7 @@ public class Hero {
     }
 
     public void jump(){
-        position.set(270, 400,0);
+        position.set(170, 400,0);
         velocity.y = 100;
     }
 
@@ -72,11 +74,11 @@ public class Hero {
         return heroSprite;
     }
 
-    public int getBaseDamage() {
-        return baseDamage;
+    public int getCurrentDamage() {
+        return currentDamage;
     }
 
-    public void setBaseDamage(int baseDamage) {
-        this.baseDamage = baseDamage;
+    public void setCurrentDamage(int currentDamage) {
+        this.currentDamage = currentDamage;
     }
 }

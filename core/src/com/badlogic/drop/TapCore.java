@@ -27,13 +27,14 @@ public class TapCore extends ApplicationAdapter {
 	//remember all tests should be on the desktop first before the android device
 	public static final int width = 480;
 	public static final int height = 800;
-	public static boolean heroFlag = false;
+//	public static boolean heroFlag = false;
 
 	public static final String title = "Tap-A-Pon";
 
 	private GameStateManager gsm;
 	private SpriteBatch batch; //these are heavy files so just pass it around each game state
 
+	public static String[] pathOptions = {"aswang.png","manananggal.png","tikbalang.png","shokoy.png","duwende.png"};
 
 	//create is where we load the assets that we need but that's it. It just loads
 	@Override

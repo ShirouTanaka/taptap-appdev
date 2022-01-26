@@ -28,7 +28,7 @@ public class Hero {
     private static double currentMoneyScaler = baseMoneyScaler;
     private static boolean upgrade2flag = false;
     private static int money = 0;
-
+    //
     private static final int baseDamage = 15;
     private static int currentDamage = baseDamage;
     private Texture texture;

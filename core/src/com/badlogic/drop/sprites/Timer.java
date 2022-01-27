@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.text.DecimalFormat;
 
 public class Timer {
-    SpriteBatch sb;
+    private SpriteBatch sb;
     private BitmapFont font;
-    public float currentTime = 20;
+    public float currentTime = 30;
     public CharSequence str;
-    public Boolean timeEnded;
     private DecimalFormat df = new DecimalFormat("0");
+
+    //test
+
+
     public Timer() {
         font = new BitmapFont();
         sb = new SpriteBatch();
@@ -20,11 +23,11 @@ public class Timer {
     public void drawTime(SpriteBatch sb) {
         currentTime -= Gdx.graphics.getDeltaTime();
         str = df.format(currentTime);
-        font.draw(sb, str, 225, 734);
+        font.draw(sb, str, 240, 734);
     }
 
     public void resetTime(){
-        this.currentTime = 20;
+        this.currentTime = 30;
     }
 
 }

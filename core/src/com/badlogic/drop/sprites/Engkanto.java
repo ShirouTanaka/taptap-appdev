@@ -18,14 +18,19 @@ public class Engkanto {
     private Sprite engkantoSprite;
     private Animation slashAnimation;
     private Texture texture;
+
     private static int baseHealth = 900;
     private Rectangle sbounds;
+
+    public static int i;
 
     public Engkanto(int x, int y){
         position = new Vector3(x, y, 0);
 
-        engkanto = new Texture(TapCore.pathOptions[1]);
+        engkanto = new Texture(TapCore.pathOptions[i]);
         engkantoSprite = new Sprite(engkanto);
+
+        changeSkin();
 
         texture = new Texture("slash.png");
         slashAnimation = new Animation(new TextureRegion(texture), 12,0.5f);
@@ -44,7 +49,13 @@ public class Engkanto {
         return slashAnimation.getFrame();
     }
     public Rectangle getBounds(){return sbounds;}
-    public void dispose() {texture.dispose();}
+    public void dispose() {
+        texture.dispose();
+    }
+
+    public void skinDispose(){
+        engkanto.dispose();
+    }
 
     public void shake() {
         position.set(120, 400,0);
@@ -68,5 +79,19 @@ public class Engkanto {
     }
     public void setBaseHealth(int baseHealth) {
         this.baseHealth = baseHealth;
+    }
+
+    public void changeSkin(){
+        skinDispose();
+
+        //change the skin
+        if (i < 5) {
+            engkanto = new Texture(TapCore.pathOptions[i++]);
+        }
+        else {
+            i = 0;
+            engkanto = new Texture(TapCore.pathOptions[i]);
+        }
+        engkantoSprite = new Sprite(engkanto);
     }
 }

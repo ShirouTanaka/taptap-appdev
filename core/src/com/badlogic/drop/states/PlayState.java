@@ -5,6 +5,7 @@ import com.badlogic.drop.sprites.Engkanto;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,8 +14,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+
+import java.awt.Font;
 
 import javax.swing.JDialog;
 
@@ -48,6 +55,8 @@ public class PlayState extends State{
     //display
     private Label engkantoHealth;
     private BitmapFont font;
+
+    private Sound atkSound = Gdx.audio.newSound(Gdx.files.internal("attack.mp3"));
 
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
@@ -95,6 +104,10 @@ public class PlayState extends State{
             Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(215),backSprite.getRegionY()+(335),backSprite.getRegionWidth(), backSprite.getRegionHeight());
 
             jose.jump();
+
+            //sound test
+            atkSound.play();
+
             engkanto.shake();
             engkantoHP = engkantoHP - joseDMG;
             System.out.println("Engkanto HP: "+ engkantoHP);
@@ -102,6 +115,7 @@ public class PlayState extends State{
 
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
                 System.out.println("BACK BUTTON CLICKED");
+                atkSound.stop();
                 gsm.set(new MenuState(gsm));
                 engkanto.setBaseHealth(900); // RESET FOR EASIER GRIND
                 Hero.resetMoneyScaler();
@@ -115,6 +129,7 @@ public class PlayState extends State{
         if (timer.currentTime > 0 && engkantoHP <= 0){
             System.out.println(engkantoHP);
             System.out.println("Chunkyboi is dead :( Resetting time now...");
+            engkanto.changeSkin();
             timer.resetTime();
         }
 

@@ -20,7 +20,7 @@ public class GameStateManager {
     }
 
     public void pop(){
-        states.pop();
+        states.pop().dispose();
     }
 
     //this one will do the 2 jobs

@@ -27,7 +27,8 @@ public class Engkanto {
 
     public static int i = 0;
 
-    public Engkanto(int x, int y, String xTexture){
+
+    public Engkanto(float x, float y){
         position = new Vector3(x, y, 0);
 
         engkanto = new Texture(xTexture);
@@ -59,11 +60,17 @@ public class Engkanto {
     }
 
     public void shake() {
-        position.set(120, 400,0);
+        position.set((TapCore.width/2)-(getWidth()/2)+20, 330,0);
     }
+
 
     public Vector3 getPosition(){
         return position;
+    }
+
+    public void setPosition(float x, float y) {
+        this.position.x = x;
+        this.position.y = y;
     }
 
     public Sprite getEngkantoSprite(){
@@ -85,16 +92,24 @@ public class Engkanto {
     public void changeSkin(){
         skinDispose();
 
-        Engkanto recentEnemy = null;
+        i++;
+        //change the skin
         if (i < 5) {
+            engkanto = new Texture(TapCore.pathOptions[i]);
+            position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
 
 
-        }
         else { // START FROM FIRST TEXTURE IN THE ARRAY AGAIN
             i = 0;
 
+            engkanto = new Texture(TapCore.pathOptions[i]);
+            position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
 
         }
 
+    }
+
+    public float getWidth(){
+        return engkanto.getWidth();
     }
 }

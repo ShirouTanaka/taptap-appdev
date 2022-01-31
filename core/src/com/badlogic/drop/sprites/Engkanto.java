@@ -31,7 +31,7 @@ public class Engkanto {
     public Engkanto(float x, float y){
         position = new Vector3(x, y, 0);
 
-        engkanto = new Texture(xTexture);
+        engkanto = new Texture(TapCore.pathOptions[i]);
         engkantoSprite = new Sprite(engkanto);
 
         texture = new Texture("slash.png");
@@ -51,6 +51,7 @@ public class Engkanto {
         return slashAnimation.getFrame();
     }
     public Rectangle getBounds(){return sbounds;}
+
     public void dispose() {
         texture.dispose();
     }
@@ -60,7 +61,7 @@ public class Engkanto {
     }
 
     public void shake() {
-        position.set((TapCore.width/2)-(getWidth()/2)+20, 330,0);
+        position.set((TapCore.width/2)-(engkanto.getWidth()/2)+20, 330,0);
     }
 
 
@@ -98,14 +99,13 @@ public class Engkanto {
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
 
-
         else { // START FROM FIRST TEXTURE IN THE ARRAY AGAIN
             i = 0;
 
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
-
         }
+        engkantoSprite = new Sprite(engkanto);
 
     }
 

@@ -85,7 +85,6 @@ public class PlayState extends State{
         //we can add multipliers here based on stage number
         engkantoHP = engkanto.getBaseHealth();
 
-
         //same we can add but based on shop upgrades
         joseDMG = jose.getCurrentDamage();
         System.out.println(jose.getCurrentDamage());
@@ -100,7 +99,7 @@ public class PlayState extends State{
     protected void handleInput() {
 
         engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
-        if(Gdx.input.justTouched()){
+        if(Gdx.input.isTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             camera.unproject(tmpPlay);
 
@@ -136,6 +135,8 @@ public class PlayState extends State{
             System.out.println(engkantoHP);
             System.out.println("Chunkyboi is dead :( Resetting time now...");
             engkanto.changeSkin();
+
+
             timer.resetTime();
         }
 
@@ -173,12 +174,12 @@ public class PlayState extends State{
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-        sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y);
-        if(Gdx.input.isTouched()){
-            sb.draw(engkanto.getTexture(), engkanto.getPosition().x+50, engkanto.getPosition().y);
+        sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y); // render the monster
+
+        if(Gdx.input.isTouched()){ // shake?
+            sb.draw(engkanto.getTexture(), engkanto.getPosition().x, engkanto.getPosition().y);
             sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);
         }else{
-
             sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
         }
         //this is a test for the game's timer

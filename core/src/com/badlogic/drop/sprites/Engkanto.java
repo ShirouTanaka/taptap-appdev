@@ -3,9 +3,7 @@ package com.badlogic.drop.sprites;
 import com.badlogic.drop.TapCore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -18,7 +16,6 @@ public class Engkanto {
 
     private Texture engkanto;
     private Sprite engkantoSprite;
-    private Sprite exportSprite;
     private Animation slashAnimation;
     private Texture texture;
 
@@ -27,12 +24,13 @@ public class Engkanto {
 
     public static int i = 0;
 
-
     public Engkanto(float x, float y){
         position = new Vector3(x, y, 0);
 
-        engkanto = new Texture(xTexture);
+        engkanto = new Texture(TapCore.pathOptions[i]);
         engkantoSprite = new Sprite(engkanto);
+
+//        changeSkin();
 
         texture = new Texture("slash.png");
         slashAnimation = new Animation(new TextureRegion(texture), 12,0.5f);
@@ -91,22 +89,18 @@ public class Engkanto {
 
     public void changeSkin(){
         skinDispose();
-
         i++;
         //change the skin
         if (i < 5) {
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
-
-
-        else { // START FROM FIRST TEXTURE IN THE ARRAY AGAIN
+        }
+        else {
             i = 0;
-
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
-
         }
-
+        engkantoSprite = new Sprite(engkanto);
     }
 
     public float getWidth(){

@@ -62,7 +62,10 @@ public class PlayState extends State{
         super(gsm);
 
         this.jose = xjose;
-        engkanto = new Engkanto(170, 400);
+        engkanto = new Engkanto(0, 0);
+
+        engkanto.setPosition((TapCore.width/2)-(engkanto.getWidth()/2),330);
+
         background = new Texture("IMG-0365.png");
 
         //creating timer object
@@ -108,10 +111,13 @@ public class PlayState extends State{
             //sound test
             atkSound.play();
 
-            engkanto.shake();
+//            engkanto.shake();
+
             engkantoHP = engkantoHP - joseDMG;
             System.out.println("Engkanto HP: "+ engkantoHP);
             engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
+
+            System.out.println("play pos:" + engkanto.getPosition().x);
 
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
                 System.out.println("BACK BUTTON CLICKED");
@@ -153,6 +159,7 @@ public class PlayState extends State{
             jose.addMoney((int)(baseMoney * Hero.getMoneyScale()));
             Hero.increaseMoneyScaler();
         }
+
     }
 
     @Override

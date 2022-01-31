@@ -81,12 +81,10 @@ public class MenuState extends State{
                 gsm.set(new PlayState(gsm,joseMain));
                 System.out.println("button click");
                 System.out.println("moving to playState");
-                dispose();
             }
             if(storeBounds.contains(tmp.x,tmp.y)){
                 gsm.set(new StoreState(gsm));
                 System.out.println("BUTTON CLICK STORE");
-                dispose();
             }
         }
     }

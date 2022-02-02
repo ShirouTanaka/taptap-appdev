@@ -34,7 +34,7 @@ public class TapCore extends ApplicationAdapter {
 	private GameStateManager gsm;
 	private SpriteBatch batch; //these are heavy files so just pass it around each game state
 
-	public static String[] pathOptions = {"manananggal.png", "aswang.png","tikbalang.png","shokoy.png","duwende.png"};
+	public static String[] pathOptions = {"manananggal1.png", "aswang1.png","tikbalang1.png","shokoy1.png","duwende1.png"};
 
 	//create is where we load the assets that we need but that's it. It just loads
 	@Override

@@ -62,11 +62,14 @@ public class PlayState extends State{
         super(gsm);
 
         this.jose = xjose;
+
+        cam.setToOrtho(false, TapCore.width/2, TapCore.height/2);
+
         engkanto = new Engkanto(0, 0);
 
         engkanto.setPosition((TapCore.width/2)-(engkanto.getWidth()/2),330);
 
-        background = new Texture("IMG-0365.png");
+        background = new Texture("bg.png");
 
         //creating timer object
         timer = new Timer();
@@ -100,7 +103,7 @@ public class PlayState extends State{
     protected void handleInput() {
 
         engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
-        if(Gdx.input.justTouched()){
+        if(Gdx.input.isTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             camera.unproject(tmpPlay);
 
@@ -172,8 +175,9 @@ public class PlayState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+        sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-        sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y);
+        sb.draw(engkanto.getEngkantoSprite(), cam.position.x - (engkanto.getWidth()/2), cam.position.y-40);
         if(Gdx.input.isTouched()){
             sb.draw(engkanto.getTexture(), engkanto.getPosition().x+50, engkanto.getPosition().y);
             sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);

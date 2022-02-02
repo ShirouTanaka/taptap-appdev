@@ -178,11 +178,11 @@ public class PlayState extends State{
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-        sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y); // render the monster
 
-        if(Gdx.input.isTouched()){ // shake?
-            sb.draw(engkanto.getTexture(), engkanto.getPosition().x, engkanto.getPosition().y);
-            sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);
+        sb.draw(engkanto.getEngkantoSprite(), cam.position.x - (engkanto.getWidth()/2), cam.position.y-40);
+        if(Gdx.input.isTouched()){
+              sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y); // render the monster
+              sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);
         }else{
             sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
         }

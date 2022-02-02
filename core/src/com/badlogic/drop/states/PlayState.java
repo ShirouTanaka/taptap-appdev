@@ -62,11 +62,14 @@ public class PlayState extends State{
         super(gsm);
 
         this.jose = xjose;
+
+        cam.setToOrtho(false, TapCore.width/2, TapCore.height/2);
+
         engkanto = new Engkanto(0, 0);
 
         engkanto.setPosition((TapCore.width/2)-(engkanto.getWidth()/2),330);
 
-        background = new Texture("IMG-0365.png");
+        background = new Texture("bg.png");
 
         //creating timer object
         timer = new Timer();
@@ -173,6 +176,7 @@ public class PlayState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
+        sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
         sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y); // render the monster
 

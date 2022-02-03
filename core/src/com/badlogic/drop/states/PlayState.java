@@ -95,25 +95,23 @@ public class PlayState extends State{
         //display engkanto health
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         engkantoHealth = new Label(Engkanto.getEngkantoHealth(engkantoHP), new Label.LabelStyle(font, Color.WHITE));
-        engkantoHealth.setPosition((TapCore.width/2) - (100), ((TapCore.height/2)+350));
+        engkantoHealth.setFontScale((float) .75);
+        engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/3)), ((cam.position.y/2)+260));
     }
 
     @Override
     protected void handleInput() {
 
         engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             camera.unproject(tmpPlay);
 
             Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(215),backSprite.getRegionY()+(335),backSprite.getRegionWidth(), backSprite.getRegionHeight());
 
             jose.jump();
-
             //sound test
             atkSound.play();
-
-//            engkanto.shake();
 
             engkantoHP = engkantoHP - joseDMG;
             System.out.println("Engkanto HP: "+ engkantoHP);
@@ -147,7 +145,7 @@ public class PlayState extends State{
             System.out.println("You lost my gamer");
             engkanto.setBaseHealth(900);
             Hero.resetMoneyScaler();
-            gsm.set(new MenuState(gsm));
+            gsm.set(new LoseState(gsm));
         }
 
         if(engkantoHP <= 0){
@@ -179,12 +177,13 @@ public class PlayState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
 
-        sb.draw(engkanto.getEngkantoSprite(), cam.position.x - (engkanto.getWidth()/2), cam.position.y-40);
-        if(Gdx.input.isTouched()){
-              sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y); // render the monster
-              sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);
+        if(Gdx.input.justTouched()){
+            sb.draw(engkanto.getEngkantoSprite(), (cam.position.x - (engkanto.getWidth()/2)+10), cam.position.y-40);
+            sb.draw(jose.getTexture(), (cam.position.x - (jose.getWidth()/2)), cam.position.y);
         }else{
-            sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
+            sb.draw(engkanto.getEngkantoSprite(), cam.position.x - (engkanto.getWidth()/2), cam.position.y-40);
+            sb.draw(jose.getHeroSprite(), (cam.position.x - (jose.getWidth()/2)), cam.position.y-120);
+
         }
         //this is a test for the game's timer
         engkantoHealth.draw(sb, (float)(100));

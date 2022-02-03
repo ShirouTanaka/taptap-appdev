@@ -1,5 +1,7 @@
 package com.badlogic.drop.sprites;
 
+import com.badlogic.drop.TapCore;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,6 +35,7 @@ public class Hero {
     private static int currentDamage = baseDamage;
     private Texture texture;
 
+    OrthographicCamera cam;
 
     public Hero(int x, int y){
         position = new Vector3(x, y,0);
@@ -46,6 +49,10 @@ public class Hero {
         texture = new Texture("atk-set.png");
         heroAnimation = new Animation(new TextureRegion(texture), 2,0.5f);
         bounds= new Rectangle(x,y,texture.getWidth()/2, texture.getHeight());
+
+        //camera
+        cam = new OrthographicCamera();
+        cam.setToOrtho(false, TapCore.width/2, TapCore.height/2);
 
     }
 
@@ -81,8 +88,8 @@ public class Hero {
     }
 
     public void jump(){
-        position.set(170, 400,0);
-        velocity.y = 100;
+        position.set(170, 440,0);
+        velocity.y = 10;
     }
 
     public TextureRegion getTexture(){
@@ -136,5 +143,8 @@ public class Hero {
         }else{
             currentMoneyScaler = upgrade2Holder;
         }
+    }
+    public float getWidth(){
+        return hero.getWidth();
     }
 }

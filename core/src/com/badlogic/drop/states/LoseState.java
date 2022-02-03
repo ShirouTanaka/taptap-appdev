@@ -1,34 +1,32 @@
 package com.badlogic.drop.states;
 
 import com.badlogic.drop.TapCore;
+import com.badlogic.drop.sprites.Engkanto;
 import com.badlogic.drop.sprites.Hero;
+import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class MenuState extends State{
-    //initialize images here
+public class LoseState extends State{
     private Texture background;
     private Texture playBtn;
-    private Texture title;
+//    private Texture title;
+    private Texture ded;
+    private Sprite dedSprite;
     private Sprite playSprite;
     private Texture storeButton;
     private Sprite storeSprite;
@@ -36,36 +34,33 @@ public class MenuState extends State{
     OrthographicCamera camera;
     ExtendViewport viewport;
 
-
-    public MenuState(GameStateManager gsm) {
+    public LoseState(GameStateManager gsm) {
         super(gsm);
-        //load images here
+
         background = new Texture("bg.png");
         playBtn = new Texture("playBtn.png");
-        title = new Texture("title.png");
+//        title = new Texture("title.png");
         storeButton = new Texture("storeBtn.png");
+        ded = new Texture("ded_2.png");
 
         // - - > CAMERA
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.translate((TapCore.width/2),  (TapCore.height/2));
-        viewport = new ExtendViewport(TapCore.width, TapCore.height, camera);
         cam.setToOrtho(false, TapCore.width/2, TapCore.height/2);
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.translate((TapCore.width/2),  TapCore.height/2);
+        viewport = new ExtendViewport(TapCore.width, TapCore.height, camera);
 
         // - - > PLAY SPRITE
         playSprite = new Sprite(playBtn);
         playSprite.setPosition((float) (cam.position.x - (playBtn.getWidth() / 2)), (float) (cam.position.y-20));;
-
         // - - > STORE SPRITE
         storeSprite = new Sprite(storeButton);
         storeSprite.setPosition((float) (cam.position.x - (playBtn.getWidth() / 2)), (float) (cam.position.y-80));
-
-        // - - > INITIALIZE MAIN JOSE FOR THE WHOLE GAME
+        // - - > DED SPRITE
+        dedSprite = new Sprite(ded);
         joseMain = new Hero( 170,80);
     }
-
     @Override
-    public void handleInput() {
-
+    protected void handleInput() {
         if (Gdx.input.justTouched())
         {
             Vector3 tmp = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
@@ -88,6 +83,7 @@ public class MenuState extends State{
                 System.out.println("BUTTON CLICK STORE");
             }
         }
+
     }
 
     @Override
@@ -102,20 +98,22 @@ public class MenuState extends State{
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         //start drawing the things
+
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-        sb.draw(title, cam.position.x - (title.getWidth()/2), cam.position.y+40);
+//      sb.draw(title, cam.position.x - (title.getWidth()/2), cam.position.y+40);
+
         //sb.draw(playBtn, (TapCore.width/2) - (playBtn.getWidth() / 2), (TapCore.height/2));
         playSprite.draw(sb);
         storeSprite.draw(sb);
+        sb.draw(dedSprite, cam.position.x - (dedSprite.getWidth()/2), cam.position.y-120);
         sb.end();
     }
-
 
     @Override
     public void dispose() {
         background.dispose();
         playBtn.dispose();
-        title.dispose();
+//        title.dispose();
         storeButton.dispose();
     }
 }

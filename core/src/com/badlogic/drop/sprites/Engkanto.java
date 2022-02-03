@@ -2,6 +2,7 @@ package com.badlogic.drop.sprites;
 
 import com.badlogic.drop.TapCore;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,6 +25,9 @@ public class Engkanto {
 
     public static int i = 0;
 
+    OrthographicCamera cam;
+
+
     public Engkanto(float x, float y){
         position = new Vector3(x, y, 0);
 
@@ -31,10 +35,12 @@ public class Engkanto {
         engkantoSprite = new Sprite(engkanto);
 
 //        changeSkin();
-
         texture = new Texture("slash.png");
         slashAnimation = new Animation(new TextureRegion(texture), 12,0.5f);
         sbounds= new Rectangle(x,y,texture.getWidth()/12, texture.getHeight());
+
+        cam = new OrthographicCamera();
+        cam.setToOrtho(false, TapCore.width/2, TapCore.height/2);
     }
 
 
@@ -56,11 +62,6 @@ public class Engkanto {
     public void skinDispose(){
         engkanto.dispose();
     }
-
-    public void shake() {
-        position.set((TapCore.width/2)-(getWidth()/2)+20, 330,0);
-    }
-
 
     public Vector3 getPosition(){
         return position;

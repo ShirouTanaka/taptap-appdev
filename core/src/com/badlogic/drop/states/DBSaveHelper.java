@@ -19,8 +19,8 @@ public class DBSaveHelper {
 
     // DATABASE CREATION SQL QUERY
     private static final String DATABASE_CREATE = "create table if not exists "
-            + COLUMN_ID + " integer primary key autoincrement, "
-            + HERO_TABLE + "(" + COLUMN_MONEY + " int not null, "
+            + HERO_TABLE + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_MONEY + " int not null, "
             + COLUMN_DAMAGE + " int not null);";
 
     public DBSaveHelper(){
@@ -44,7 +44,7 @@ public class DBSaveHelper {
         Gdx.app.log("DBTEST", "Database created successfully");
     }
 
-    public static void terminateDB(){
+    public void terminateDB(){
         try{
             dbHandler.closeDatabase();
         }catch (SQLiteGdxException e){
@@ -65,7 +65,6 @@ public class DBSaveHelper {
 
         while(cursor.next()){
             value = Integer.getInteger(String.valueOf(cursor.getInt(1)));
-            break;
         }
         return value;
     }

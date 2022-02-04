@@ -169,6 +169,7 @@ public class PlayState extends State{
         handleInput();
         jose.update(deltaTime);
         engkanto.update(deltaTime);
+        cam.update();
     }
 
     @Override
@@ -179,14 +180,15 @@ public class PlayState extends State{
 
         if(Gdx.input.justTouched()){
             sb.draw(engkanto.getEngkantoSprite(), (cam.position.x - (engkanto.getWidth()/2)+10), cam.position.y-40);
-            sb.draw(jose.getTexture(), (cam.position.x - (jose.getWidth()/2)), cam.position.y);
+//            sb.draw(jose.getTexture(), (cam.position.x - (jose.getWidth()/2)), cam.position.y);
         }else{
             sb.draw(engkanto.getEngkantoSprite(), cam.position.x - (engkanto.getWidth()/2), cam.position.y-40);
-            sb.draw(jose.getHeroSprite(), (cam.position.x - (jose.getWidth()/2)), cam.position.y-120);
+//            sb.draw(jose.getHeroSprite(), (cam.position.x - (jose.getWidth()/2)), cam.position.y-120);
 
         }
         //this is a test for the game's timer
         engkantoHealth.draw(sb, (float)(100));
+        sb.draw(jose.getHeroSprite(), jose.getPosition().x,jose.getPosition().y);
         backSprite.draw(sb);
         timer.drawTime(sb);
         sb.end();

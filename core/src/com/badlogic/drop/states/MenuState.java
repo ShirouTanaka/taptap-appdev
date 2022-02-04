@@ -60,7 +60,7 @@ public class MenuState extends State{
         storeSprite.setPosition((float) (cam.position.x - (playBtn.getWidth() / 2)), (float) (cam.position.y-80));
 
         // - - > INITIALIZE MAIN JOSE FOR THE WHOLE GAME
-        joseMain = new Hero( 170,80);
+        joseMain = new Hero( cam.position.x-40,80);
     }
 
     @Override

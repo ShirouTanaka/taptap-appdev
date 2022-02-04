@@ -37,7 +37,7 @@ public class Hero {
 
     OrthographicCamera cam;
 
-    public Hero(int x, int y){
+    public Hero(float x, float y){
         position = new Vector3(x, y,0);
         velocity = new Vector3(0, 0, 0);
 
@@ -88,8 +88,8 @@ public class Hero {
     }
 
     public void jump(){
-        position.set(170, 440,0);
-        velocity.y = 10;
+        position.set((cam.position.x-40), 150,0);
+        velocity.y = 150;
     }
 
     public TextureRegion getTexture(){

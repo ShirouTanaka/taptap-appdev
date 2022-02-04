@@ -68,11 +68,14 @@ public class PlayState extends State {
         super(gsm);
 
         this.jose = xjose;
+
+        cam.setToOrtho(false, TapCore.width/2, TapCore.height/2);
+
         engkanto = new Engkanto(0, 0);
 
         engkanto.setPosition((TapCore.width/2)-(engkanto.getWidth()/2),330);
 
-        background = new Texture("IMG-0365.png");
+        background = new Texture("bg.png");
 
         //creating timer object
         timer = new Timer();
@@ -98,25 +101,23 @@ public class PlayState extends State {
         //display engkanto health
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         engkantoHealth = new Label(Engkanto.getEngkantoHealth(engkantoHP), new Label.LabelStyle(font, Color.WHITE));
-        engkantoHealth.setPosition((TapCore.width/2) - (100), ((TapCore.height/2)+350));
 
+        engkantoHealth.setFontScale((float) .75);
+        engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/3)), ((cam.position.y/2)+260));
     }
 
     @Override
     protected void handleInput() {
 
         engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
 
             Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(215),backSprite.getRegionY()+(335),backSprite.getRegionWidth(), backSprite.getRegionHeight());
 
             jose.jump();
-
             //sound test
             atkSound.play();
-
-//            engkanto.shake();
 
             engkantoHP = engkantoHP - joseDMG;
             System.out.println("Engkanto HP: "+ engkantoHP);
@@ -150,7 +151,7 @@ public class PlayState extends State {
             engkanto.setBaseHealth(900);
             Hero.resetMoneyScaler();
 
-            gsm.set(new MenuState(gsm));
+            gsm.set(new LoseState(gsm));
         }
 
         if(engkantoHP <= 0){
@@ -174,6 +175,7 @@ public class PlayState extends State {
         handleInput();
         jose.update(deltaTime);
         engkanto.update(deltaTime);
+        cam.update();
     }
 
     @Override
@@ -181,18 +183,27 @@ public class PlayState extends State {
 
         // DRAW
         sb.begin();
+        sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-        sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y); // render the monster
-
-        if(Gdx.input.isTouched()){ // shake?
-            sb.draw(engkanto.getTexture(), engkanto.getPosition().x, engkanto.getPosition().y);
-            sb.draw(jose.getTexture(), jose.getPosition().x, jose.getPosition().y);
+        boolean attacking = false;
+        if(Gdx.input.justTouched()){
+            sb.draw(engkanto.getEngkantoSprite(), (cam.position.x - (engkanto.getWidth()/2)+10), cam.position.y-40);
+            attacking = true;
         }else{
-            sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
+            sb.draw(engkanto.getEngkantoSprite(), cam.position.x - (engkanto.getWidth()/2), cam.position.y-40);
+//            sb.draw(jose.getHeroSprite(), (cam.position.x - (jose.getWidth()/2)), cam.position.y-120);
+            attacking = false;
         }
 
         //this is a test for the game's timer
         engkantoHealth.draw(sb, (float)(100));
+        if(attacking){
+            sb.draw(engkanto.getTexture(), cam.position.x-40, cam.position.y-20);
+            sb.draw(jose.getTexture(), jose.getPosition().x -10,jose.getPosition().y+11);
+        }else{
+            sb.draw(jose.getHeroSprite(), jose.getPosition().x,jose.getPosition().y);
+        }
+
         backSprite.draw(sb);
         timer.drawTime(sb);
         sb.end();

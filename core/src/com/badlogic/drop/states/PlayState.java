@@ -6,13 +6,16 @@ import com.badlogic.drop.sprites.Hero;
 import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -22,13 +25,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
-public class PlayState extends State{
+public class PlayState extends State {
     //initialize images here
 
-    //    private Texture hero;
 //    private Sprite heroSprite;
     private Hero jose;
     private Texture background;
@@ -57,6 +61,8 @@ public class PlayState extends State{
     private BitmapFont font;
 
     private Sound atkSound = Gdx.audio.newSound(Gdx.files.internal("attack.mp3"));
+
+
 
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
@@ -93,6 +99,7 @@ public class PlayState extends State{
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         engkantoHealth = new Label(Engkanto.getEngkantoHealth(engkantoHP), new Label.LabelStyle(font, Color.WHITE));
         engkantoHealth.setPosition((TapCore.width/2) - (100), ((TapCore.height/2)+350));
+
     }
 
     @Override
@@ -101,7 +108,6 @@ public class PlayState extends State{
         engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
         if(Gdx.input.isTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
-            camera.unproject(tmpPlay);
 
             Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(215),backSprite.getRegionY()+(335),backSprite.getRegionWidth(), backSprite.getRegionHeight());
 
@@ -136,7 +142,6 @@ public class PlayState extends State{
             System.out.println("Chunkyboi is dead :( Resetting time now...");
             engkanto.changeSkin();
 
-
             timer.resetTime();
         }
 
@@ -144,6 +149,7 @@ public class PlayState extends State{
             System.out.println("You lost my gamer");
             engkanto.setBaseHealth(900);
             Hero.resetMoneyScaler();
+
             gsm.set(new MenuState(gsm));
         }
 
@@ -172,6 +178,8 @@ public class PlayState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
+
+        // DRAW
         sb.begin();
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
         sb.draw(engkanto.getEngkantoSprite(), engkanto.getPosition().x, engkanto.getPosition().y); // render the monster
@@ -182,12 +190,15 @@ public class PlayState extends State{
         }else{
             sb.draw(jose.getHeroSprite(), jose.getPosition().x, jose.getPosition().y);
         }
+
         //this is a test for the game's timer
         engkantoHealth.draw(sb, (float)(100));
         backSprite.draw(sb);
         timer.drawTime(sb);
         sb.end();
     }
+
+
 
     @Override
     public void dispose() {

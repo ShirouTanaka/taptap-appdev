@@ -55,6 +55,7 @@ public class Engkanto {
         return slashAnimation.getFrame();
     }
     public Rectangle getBounds(){return sbounds;}
+
     public void dispose() {
         texture.dispose();
     }
@@ -94,6 +95,9 @@ public class Engkanto {
         //change the skin
         if (i < 5) {
             engkanto = new Texture(TapCore.pathOptions[i]);
+            position.x = (float) ((TapCore.width / 2) - (engkanto.getWidth() / 2));
+
+        } else { // START FROM FIRST TEXTURE IN THE ARRAY AGAIN
             position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
         }
         else {

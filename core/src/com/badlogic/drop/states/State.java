@@ -21,5 +21,4 @@ public abstract class State {
     public abstract void update(float deltaTime); //delta time is the difference between 1 frame rendered and another
     public abstract void render(SpriteBatch sb); //renders instantaneously
     public abstract void dispose();
-
 }

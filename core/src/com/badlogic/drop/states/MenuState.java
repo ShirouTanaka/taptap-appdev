@@ -45,9 +45,9 @@ public class MenuState extends State{
         super(gsm);
         //load images here
         background = new Texture("bg.png");
-        playBtn = new Texture("playBtn.png");
-        title = new Texture("title.png");
-        storeButton = new Texture("storeBtn.png");
+        playBtn = new Texture("playBtn1.png");
+        title = new Texture("title1.png");
+        storeButton = new Texture("storeBtn1.png");
 
         // - - > CAMERA
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -69,6 +69,8 @@ public class MenuState extends State{
         // - - > TEST INITIALIZE DATABASE
         db = new DBSaveHelper();
         joseMain.addMoney(db.getMoney());
+        System.out.println("MONEY NOW: "+ Hero.getMoneyInt());
+        db.terminateDB();
     }
 
     @Override

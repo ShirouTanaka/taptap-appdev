@@ -63,7 +63,6 @@ public class PlayState extends State {
     private Sound atkSound = Gdx.audio.newSound(Gdx.files.internal("attack.mp3"));
 
 
-
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 

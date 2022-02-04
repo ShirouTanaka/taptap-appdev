@@ -97,10 +97,7 @@ public class Engkanto {
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width / 2) - (engkanto.getWidth() / 2));
 
-        } else { // START FROM FIRST TEXTURE IN THE ARRAY AGAIN
-            position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
-        }
-        else {
+        } else {
             i = 0;
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));

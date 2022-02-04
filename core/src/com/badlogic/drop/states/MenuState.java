@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -35,6 +36,9 @@ public class MenuState extends State{
     private Hero joseMain;
     OrthographicCamera camera;
     ExtendViewport viewport;
+
+    // TEST DATABASE IMPLEMENTATION
+    private DBSaveHelper db;
 
 
     public MenuState(GameStateManager gsm) {
@@ -61,6 +65,10 @@ public class MenuState extends State{
 
         // - - > INITIALIZE MAIN JOSE FOR THE WHOLE GAME
         joseMain = new Hero( cam.position.x-40,80);
+
+        // - - > TEST INITIALIZE DATABASE
+        db = new DBSaveHelper();
+        joseMain.addMoney(db.getMoney());
     }
 
     @Override

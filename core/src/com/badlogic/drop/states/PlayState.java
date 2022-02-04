@@ -177,18 +177,24 @@ public class PlayState extends State{
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-
+        boolean attacking = false;
         if(Gdx.input.justTouched()){
             sb.draw(engkanto.getEngkantoSprite(), (cam.position.x - (engkanto.getWidth()/2)+10), cam.position.y-40);
-//            sb.draw(jose.getTexture(), (cam.position.x - (jose.getWidth()/2)), cam.position.y);
+            attacking = true;
         }else{
             sb.draw(engkanto.getEngkantoSprite(), cam.position.x - (engkanto.getWidth()/2), cam.position.y-40);
 //            sb.draw(jose.getHeroSprite(), (cam.position.x - (jose.getWidth()/2)), cam.position.y-120);
-
+            attacking = false;
         }
         //this is a test for the game's timer
         engkantoHealth.draw(sb, (float)(100));
-        sb.draw(jose.getHeroSprite(), jose.getPosition().x,jose.getPosition().y);
+        if(attacking){
+            sb.draw(engkanto.getTexture(), cam.position.x-40, cam.position.y-20);
+            sb.draw(jose.getTexture(), jose.getPosition().x -10,jose.getPosition().y+11);
+        }else{
+            sb.draw(jose.getHeroSprite(), jose.getPosition().x,jose.getPosition().y);
+        }
+
         backSprite.draw(sb);
         timer.drawTime(sb);
         sb.end();

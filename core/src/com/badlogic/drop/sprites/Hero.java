@@ -47,7 +47,7 @@ public class Hero {
 
         //animation
         texture = new Texture("atk-set.png");
-        heroAnimation = new Animation(new TextureRegion(texture), 2,0.5f);
+        heroAnimation = new Animation(new TextureRegion(texture), 2,1f);
         bounds= new Rectangle(x,y,texture.getWidth()/2, texture.getHeight());
 
         //camera

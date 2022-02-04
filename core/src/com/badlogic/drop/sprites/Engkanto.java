@@ -36,7 +36,7 @@ public class Engkanto {
 
 //        changeSkin();
         texture = new Texture("slash.png");
-        slashAnimation = new Animation(new TextureRegion(texture), 12,0.5f);
+        slashAnimation = new Animation(new TextureRegion(texture), 12,1f);
         sbounds= new Rectangle(x,y,texture.getWidth()/12, texture.getHeight());
 
         cam = new OrthographicCamera();

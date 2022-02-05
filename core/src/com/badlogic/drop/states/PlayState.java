@@ -224,6 +224,12 @@ public class PlayState extends State {
         sblank.begin();
 
         System.out.println(total);
+        if (total <= 900 && total > 500)
+            sblank.setColor(Color.GREEN);
+        else if (total <= 500 && total > 300)
+            sblank.setColor(Color.ORANGE);
+        else
+            sblank.setColor(Color.RED);
         sblank.draw(blank,cam.position.x-50, cam.position.y+100,total,50);
         sblank.end();
 

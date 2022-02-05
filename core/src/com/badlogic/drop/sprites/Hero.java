@@ -68,7 +68,7 @@ public class Hero {
     }
 
     public static void upgrade3() {
-        currentDamage *= 2;
+        currentDamage += (currentDamage * 0.2);
     }
 
     public void update(float deltaTime){
@@ -95,8 +95,14 @@ public class Hero {
     public TextureRegion getTexture(){
         return heroAnimation.getFrame();
     }
-    public Rectangle getBounds(){return bounds;}
-    public void dispose() {texture.dispose();}
+
+    public Rectangle getBounds(){
+        return bounds;
+    }
+
+    public void dispose() {
+        texture.dispose();
+    }
 
     public Vector3 getPosition() {
         return position;
@@ -134,9 +140,11 @@ public class Hero {
     public static double getMoneyScale(){
         return currentMoneyScaler;
     }
+
     public static void increaseMoneyScaler(){
         currentMoneyScaler += 0.3;
     }
+
     public static void resetMoneyScaler(){
         if(upgrade2flag == false){ // IF UPGRADE 2 IS NOT YET BOUGHT
             currentMoneyScaler = baseMoneyScaler;
@@ -144,9 +152,11 @@ public class Hero {
             currentMoneyScaler = upgrade2Holder;
         }
     }
+
     public void setMoneyScaler(double value){
         currentMoneyScaler = value;
     }
+
     public float getWidth(){
         return hero.getWidth();
     }

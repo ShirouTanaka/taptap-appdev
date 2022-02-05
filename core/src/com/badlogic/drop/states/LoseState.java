@@ -23,24 +23,21 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class LoseState extends State{
     private Texture background;
-    private Texture playBtn;
-//    private Texture title;
+    private Texture title;
     private Texture ded;
     private Sprite dedSprite;
-    private Sprite playSprite;
-    private Texture storeButton;
-    private Sprite storeSprite;
-    private Hero joseMain;
+    private Hero josePass;
     OrthographicCamera camera;
     ExtendViewport viewport;
+
+    private Label clickAnywhere;
+    private BitmapFont font;
 
     public LoseState(GameStateManager gsm) {
         super(gsm);
 
         background = new Texture("bg.png");
-        playBtn = new Texture("playBtn.png");
-//        title = new Texture("title.png");
-        storeButton = new Texture("storeBtn.png");
+        title = new Texture("youLost.png");
         ded = new Texture("ded_2.png");
 
         // - - > CAMERA
@@ -49,39 +46,25 @@ public class LoseState extends State{
         camera.translate((TapCore.width/2),  TapCore.height/2);
         viewport = new ExtendViewport(TapCore.width, TapCore.height, camera);
 
-        // - - > PLAY SPRITE
-        playSprite = new Sprite(playBtn);
-        playSprite.setPosition((float) (cam.position.x - (playBtn.getWidth() / 2)), (float) (cam.position.y-20));;
-        // - - > STORE SPRITE
-        storeSprite = new Sprite(storeButton);
-        storeSprite.setPosition((float) (cam.position.x - (playBtn.getWidth() / 2)), (float) (cam.position.y-80));
         // - - > DED SPRITE
         dedSprite = new Sprite(ded);
-        joseMain = new Hero( 170,80);
+
+        //for Click Anywhere
+        font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
+        clickAnywhere = new Label("Click Anywhere to Continue", new Label.LabelStyle(font, Color.WHITE));
+
+        clickAnywhere.setFontScale((float) .55);
+        clickAnywhere.setPosition(((cam.position.x/2)-(cam.position.x/5)), ((cam.position.y/2)+100));
+
     }
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched())
         {
-            Vector3 tmp = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
-            camera.unproject(tmp);
+            gsm.set(new MenuState(gsm));
+            System.out.println("button click");
+            System.out.println("moving to MenuState");
 
-            Rectangle playBounds=new Rectangle(playSprite.getRegionX()-(playSprite.getRegionWidth()/2),playSprite.getRegionY(),playSprite.getRegionWidth(), playSprite.getRegionHeight());
-            Rectangle storeBounds=new Rectangle(storeSprite.getRegionX()-(storeSprite.getRegionWidth()/2),storeSprite.getRegionY()-(storeSprite.getRegionHeight()),storeSprite.getRegionWidth(), storeSprite.getRegionHeight());
-
-            // texture x is the x position of the texture
-            // texture y is the y position of the texture
-            // texturewidth is the width of the texture (you can get it with texture.getWidth() or textureRegion.getRegionWidth() if you have a texture region
-            // textureheight is the height of the texture (you can get it with texture.getHeight() or textureRegion.getRegionhHeight() if you have a texture region
-            if(playBounds.contains(tmp.x,tmp.y)) {
-                gsm.set(new PlayState(gsm,joseMain));
-                System.out.println("button click");
-                System.out.println("moving to playState");
-            }
-            if(storeBounds.contains(tmp.x,tmp.y)){
-                gsm.set(new StoreState(gsm));
-                System.out.println("BUTTON CLICK STORE");
-            }
         }
 
     }
@@ -100,11 +83,9 @@ public class LoseState extends State{
         //start drawing the things
 
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
-//      sb.draw(title, cam.position.x - (title.getWidth()/2), cam.position.y+40);
+        sb.draw(title, cam.position.x - (title.getWidth()/2), cam.position.y+50);
 
-        //sb.draw(playBtn, (TapCore.width/2) - (playBtn.getWidth() / 2), (TapCore.height/2));
-        playSprite.draw(sb);
-        storeSprite.draw(sb);
+        clickAnywhere.draw(sb, (float)(100));
         sb.draw(dedSprite, cam.position.x - (dedSprite.getWidth()/2), cam.position.y-120);
         sb.end();
     }
@@ -112,8 +93,7 @@ public class LoseState extends State{
     @Override
     public void dispose() {
         background.dispose();
-        playBtn.dispose();
-//        title.dispose();
-        storeButton.dispose();
+        title.dispose();
+
     }
 }

@@ -67,7 +67,7 @@ public class MenuState extends State{
 
         // TEST PREFERENCES HERE
         prefs = new Prefs();
-        joseMain.addMoney(prefs.getMoney());
+        Hero.setHeroMoney(prefs.getMoney());
         joseMain.setCurrentDamage(prefs.getDamage());
         joseMain.setMoneyScaler(prefs.getScaler());
 

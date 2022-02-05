@@ -35,6 +35,8 @@ public class StoreState extends State{
     private Label moneyCount;
     private BitmapFont font;
 
+    private Texture witchtxt;
+    private Sprite witchsprite;
     // PREFS VARIABLE
     private Prefs prefs;
 
@@ -54,6 +56,7 @@ public class StoreState extends State{
         upgrade1 = new Texture("upgrade1.png");
         upgrade2 = new Texture("upgrade2.png");
         upgrade3 = new Texture("upgrade3.png");
+        witchtxt = new Texture("dummy.png");
 
         // - - > CAMERA
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -62,24 +65,25 @@ public class StoreState extends State{
 
         // BACK BUTTON SPRITE
         backSprite = new Sprite(backButton);
-        backSprite.setPosition((float) ((TapCore.width/6) - (backButton.getWidth() / 2)),(float) (TapCore.height)-(135));
+        backSprite.setPosition((float) (cam.position.x - (backButton.getWidth() / 2)+30), (float) (cam.position.y+350));
 
         // BUY BUTTON 1 SPRITE
         buySprite1 = new Sprite(buyButton1);
-        buySprite1.setPosition((float) (TapCore.width/3.2) - (95), (float)((TapCore.height/2)-70));
+        buySprite1.setPosition((float) (cam.position.x - (backButton.getWidth() / 2)+44), (float) (cam.position.y+270));
 
         // BUY BUTTON 2 SPRITE
         buySprite2 = new Sprite(buyButton2);
-        buySprite2.setPosition((float) (TapCore.width/3.2) + (153), (float)((TapCore.height/2)-70));
+        buySprite2.setPosition((float) (cam.position.x - (backButton.getWidth() / 2)+44), (float) (cam.position.y+176));
 
         // BUY BUTTON 3 SPRITE
         buySprite3 = new Sprite(buyButton3);
-        buySprite3.setPosition((float) (TapCore.width/2) - (64), (float) ((TapCore.height/2)-375));
+        buySprite3.setPosition((float) (cam.position.x - (backButton.getWidth() / 2)+44), (float) (cam.position.y+82));
 
         // MONEY COUNT LABEL
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         moneyCount = new Label(Hero.getHeroMoney(), new Label.LabelStyle(font, Color.WHITE));
-        moneyCount.setPosition((TapCore.width/2) - (29), ((TapCore.height/2)+222));
+        moneyCount.setFontScale(0.5f,0.5f);
+        moneyCount.setPosition((float) (cam.position.x - (moneyCount.getWidth() / 2)+115), (float) (cam.position.y+15));
 
         // INITIALIZE PREFS
         prefs = new Prefs();
@@ -91,10 +95,10 @@ public class StoreState extends State{
             Vector3 tmpStore = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             camera.unproject(tmpStore);
 
-            Rectangle upgrade1Bounds = new Rectangle(buySprite1.getRegionX()-(180),buySprite1.getRegionY()-(70),buySprite1.getRegionWidth(), buySprite1.getRegionHeight());
-            Rectangle upgrade2Bounds = new Rectangle(buySprite2.getRegionX()+(60),buySprite2.getRegionY()-(70),buySprite2.getRegionWidth(), buySprite2.getRegionHeight());
-            Rectangle upgrade3Bounds = new Rectangle(buySprite3.getRegionX()-(buySprite3.getRegionWidth()/2),buySprite3.getRegionY()-(375),buySprite3.getRegionWidth(), buySprite3.getRegionHeight());
-            Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(190),backSprite.getRegionY()+(280),backSprite.getRegionWidth(), backSprite.getRegionHeight());
+            Rectangle upgrade1Bounds = new Rectangle((cam.position.x-450), (cam.position.y+350),buySprite1.getRegionWidth()+240, buySprite1.getRegionHeight()+110);
+            Rectangle upgrade2Bounds = new Rectangle((cam.position.x-450), (cam.position.y-100),buySprite2.getRegionWidth()+240, buySprite2.getRegionHeight()+110);
+            Rectangle upgrade3Bounds = new Rectangle((cam.position.x-450), (cam.position.y-620),buySprite3.getRegionWidth()+240, buySprite3.getRegionHeight()+110);
+            Rectangle backBounds = new Rectangle((cam.position.x-550), (cam.position.y+700),backSprite.getRegionWidth()+240, backSprite.getRegionHeight()+240);
 
             if(upgrade1Bounds.contains(tmpStore.x, tmpStore.y)) {
                 System.out.println("UPGRADE 1 CLICKED");
@@ -121,7 +125,7 @@ public class StoreState extends State{
                     prefs.decreaseMoney(500);
                     prefs.increaseMoneyScaler(2.0);
                 }else{
-                    System.out.println("INSUFFICIENT MONEY");
+                    System.out.println("INSUFFICIENT MONEY2");
                 }
 
             } if(upgrade3Bounds.contains(tmpStore.x,tmpStore.y)){
@@ -135,7 +139,7 @@ public class StoreState extends State{
                     prefs.decreaseMoney(1000);
                     prefs.increaseDamage(2, "up2");
                 }else{
-                    System.out.println("INSUFFICIENT MONEY");
+                    System.out.println("INSUFFICIENT MONEY3");
                 }
 
             } if(backBounds.contains(tmpStore.x, tmpStore.y)){
@@ -156,13 +160,14 @@ public class StoreState extends State{
         sb.begin();
         // draw textures and sprites
         sb.draw(storeBackground, 0,0, TapCore.width, TapCore.height);
-        sb.draw(storeTitle, (TapCore.width/2) - (storeTitle.getWidth() / 2), ((TapCore.height/2)+260));
-        sb.draw(chocnut, (TapCore.width/2) - (72), ((TapCore.height/2)+220));
+        sb.draw(storeTitle, (float) (cam.position.x - (backButton.getWidth() / 2)+85), (float) (cam.position.y+345));
+        sb.draw(chocnut, (float) (cam.position.x - (chocnut.getWidth() / 2)+55), (float) (cam.position.y+15));
 
         // UPGRADES RENDER
-        sb.draw(upgrade1, (TapCore.width/4) - (upgrade1.getWidth() / 2), ((TapCore.height/2)-20));
-        sb.draw(upgrade2, (TapCore.width/2) + (upgrade2.getWidth() / 3), ((TapCore.height/2)-20));
-        sb.draw(upgrade3, (TapCore.width/2) - (upgrade3.getWidth() / 2), ((TapCore.height/2)-320));
+        sb.draw(upgrade1, (float) (cam.position.x - (backButton.getWidth() / 2)+50), (float) (cam.position.y+275));
+        sb.draw(upgrade2, (float) (cam.position.x - (backButton.getWidth() / 2)+48), (float) (cam.position.y+180));
+        sb.draw(upgrade3, (float) (cam.position.x - (backButton.getWidth() / 2)+50), (float) (cam.position.y+75));
+        sb.draw(witchtxt, (float) (cam.position.x - (backButton.getWidth() / 2)+170), (float) (cam.position.y));
         moneyCount.draw(sb, (float)(100));
 
         backSprite.draw(sb); // DRAW BACK BUTTON

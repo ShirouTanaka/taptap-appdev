@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.sql.DatabaseCursor;
+//import com.badlogic.gdx.sql.DatabaseCursor;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -84,9 +84,8 @@ public class MenuState extends State{
             Vector3 tmp = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             camera.unproject(tmp);
 
-            Rectangle playBounds=new Rectangle(playSprite.getRegionX()-(playSprite.getRegionWidth()/2),playSprite.getRegionY(),playSprite.getRegionWidth(), playSprite.getRegionHeight());
-            Rectangle storeBounds=new Rectangle(storeSprite.getRegionX()-(storeSprite.getRegionWidth()/2),storeSprite.getRegionY()-(storeSprite.getRegionHeight()),storeSprite.getRegionWidth(), storeSprite.getRegionHeight());
-
+            Rectangle playBounds=new Rectangle(playSprite.getRegionX()-150,playSprite.getRegionY()-21,playSprite.getRegionWidth()+400, playSprite.getRegionHeight()+200);
+            Rectangle storeBounds=new Rectangle(storeSprite.getRegionX()-150,storeSprite.getRegionY()-450,storeSprite.getRegionWidth()+400, storeSprite.getRegionHeight()+200);
             // texture x is the x position of the texture
             // texture y is the y position of the texture
             // texturewidth is the width of the texture (you can get it with texture.getWidth() or textureRegion.getRegionWidth() if you have a texture region

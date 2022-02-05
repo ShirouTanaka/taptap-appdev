@@ -9,7 +9,7 @@ public class Prefs {
 
     public Prefs(){ // CONSTRUCTOR
         prefs = Gdx.app.getPreferences("My Preferences");
-        savedMoney = prefs.getInteger("money", 20);
+        savedMoney = prefs.getInteger("money"); // JUST GET THE VALUE OF KEY "MONEY"
     }
 
     // MONEY MANIPULATION METHODS

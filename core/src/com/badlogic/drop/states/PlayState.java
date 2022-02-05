@@ -61,6 +61,7 @@ public class PlayState extends State {
     private BitmapFont font;
 
     private Sound atkSound = Gdx.audio.newSound(Gdx.files.internal("attack.mp3"));
+    private Prefs prefs;
 
 
     public PlayState(GameStateManager gsm, Hero xjose) {
@@ -103,6 +104,9 @@ public class PlayState extends State {
 
         engkantoHealth.setFontScale((float) .75);
         engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/3)), ((cam.position.y/2)+260));
+
+        // INITIALIZE PREFS
+        prefs = new Prefs();
     }
 
     @Override
@@ -165,6 +169,9 @@ public class PlayState extends State {
             // GIVE MONEY TO JOSE UPON DEFEATING ENEMY
             jose.addMoney((int)(baseMoney * Hero.getMoneyScale()));
             Hero.increaseMoneyScaler();
+
+            // SAVE MONEY
+            prefs.increaseMoney((int)(baseMoney * Hero.getMoneyScale()));
         }
 
     }

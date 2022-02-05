@@ -30,10 +30,13 @@ public class Prefs {
     public void increaseDamage(int value, String flag){
         if(flag == "up1"){ // +10
              savedDamage += value;
-        }else{ // up3
-            value /= 100; // 20% | 0.2
-            double increase = savedDamage * value;
-            savedDamage += increase;
+        }
+
+        else if(flag == "up3"){ // up3
+//            value /= 100; // 20% | 0.2
+//            double increase = savedDamage * value;
+            savedDamage += (savedDamage*0.2);
+            System.out.println("updated DMG: " + savedDamage);
         }
         prefs.putInteger("damage", savedDamage);
         prefs.flush();

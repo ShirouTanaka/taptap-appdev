@@ -24,11 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
 
 public class PlayState extends State {
     //initialize images here
@@ -36,19 +31,14 @@ public class PlayState extends State {
 //    private Sprite heroSprite;
     private Hero jose;
     private Texture background;
-    private Engkanto chunkyBoi;
-    public boolean attacking;
-    private int chunkyBoiHP;
     private Engkanto engkanto;
 
     private int engkantoHP;
     private int joseDMG;
     private int baseMoney = 10;
 
-    //initiating timer test here
     private Timer timer;
 
-    //back to menu
     private Sprite backSprite;
     private Texture backButton;
 
@@ -84,7 +74,7 @@ public class PlayState extends State {
         backButton = new Texture("back.png");
         // BACK BUTTON SPRITE
         backSprite = new Sprite(backButton);
-        backSprite.setPosition((float) ((TapCore.width/6) - (backButton.getWidth()+10)),(float) (TapCore.height)-(70));
+        backSprite.setPosition((float) (cam.position.x-110), (float) (cam.position.y+160));
 
         // - - > CAMERA
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -102,8 +92,8 @@ public class PlayState extends State {
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         engkantoHealth = new Label(Engkanto.getEngkantoHealth(engkantoHP), new Label.LabelStyle(font, Color.WHITE));
 
-        engkantoHealth.setFontScale((float) .75);
-        engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/3)), ((cam.position.y/2)+260));
+        engkantoHealth.setFontScale((float) .70);
+        engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/24)+10), ((cam.position.y/2)+260));
 
         // INITIALIZE PREFS
         prefs = new Prefs();
@@ -116,7 +106,7 @@ public class PlayState extends State {
         if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
 
-            Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(215),backSprite.getRegionY()+(335),backSprite.getRegionWidth(), backSprite.getRegionHeight());
+            Rectangle backBounds = new Rectangle((cam.position.x-60), (cam.position.y-100),backSprite.getRegionWidth()+100, backSprite.getRegionHeight()+100);
 
             jose.jump();
             //sound test
@@ -191,6 +181,7 @@ public class PlayState extends State {
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
+
         boolean attacking = false;
         if(Gdx.input.justTouched()){
             sb.draw(engkanto.getEngkantoSprite(), (cam.position.x - (engkanto.getWidth()/2)+10), cam.position.y-40);
@@ -201,7 +192,6 @@ public class PlayState extends State {
             attacking = false;
         }
 
-        //this is a test for the game's timer
         engkantoHealth.draw(sb, (float)(100));
         if(attacking){
             sb.draw(engkanto.getTexture(), cam.position.x-40, cam.position.y-20);

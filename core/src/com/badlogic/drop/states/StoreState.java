@@ -104,7 +104,7 @@ public class StoreState extends State{
                 System.out.println("UPGRADE 1 CLICKED");
                 // SANTELMO'S CURSE
                 if(Hero.getMoneyInt() >= 100){ // CAN PURCHASE
-                    Hero.upgrade1(100);
+                    Hero.upgrade1(10);
                     Hero.setHeroMoney(Hero.getMoneyInt()-100);
 
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
@@ -117,12 +117,12 @@ public class StoreState extends State{
             } if(upgrade2Bounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("UPGRADE 2 CLICKED");
                 // MAKILING'S AID
-                if(Hero.getMoneyInt() >= 500){
+                if(Hero.getMoneyInt() >= 1000){
                     Hero.upgrade2();
-                    Hero.setHeroMoney(Hero.getMoneyInt()-500);
+                    Hero.setHeroMoney(Hero.getMoneyInt()-1000);
 
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
-                    prefs.decreaseMoney(500);
+                    prefs.decreaseMoney(1000);
                     prefs.increaseMoneyScaler(2.0);
                 }else{
                     System.out.println("INSUFFICIENT MONEY2");
@@ -131,12 +131,12 @@ public class StoreState extends State{
             } if(upgrade3Bounds.contains(tmpStore.x,tmpStore.y)){
                 System.out.println("UPGRADE 3 CLICKED");
                 // MALAKAS' COURAGE
-                if(Hero.getMoneyInt() >= 1000){ // CAN PURCHASE
+                if(Hero.getMoneyInt() >= 700){ // CAN PURCHASE
                     Hero.upgrade3();
-                    Hero.setHeroMoney(Hero.getMoneyInt()-1000);
+                    Hero.setHeroMoney(Hero.getMoneyInt()-700);
 
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
-                    prefs.decreaseMoney(1000);
+                    prefs.decreaseMoney(700);
                     prefs.increaseDamage(20, "up3");
                 }else{
                     System.out.println("INSUFFICIENT MONEY3");

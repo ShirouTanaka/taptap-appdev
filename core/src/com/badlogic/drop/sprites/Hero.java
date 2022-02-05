@@ -144,6 +144,9 @@ public class Hero {
             currentMoneyScaler = upgrade2Holder;
         }
     }
+    public void setMoneyScaler(double value){
+        currentMoneyScaler = value;
+    }
     public float getWidth(){
         return hero.getWidth();
     }

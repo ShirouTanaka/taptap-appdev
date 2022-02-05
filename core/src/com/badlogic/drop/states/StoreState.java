@@ -35,6 +35,9 @@ public class StoreState extends State{
     private Label moneyCount;
     private BitmapFont font;
 
+    // PREFS VARIABLE
+    private Prefs prefs;
+
     protected StoreState(GameStateManager gsm) {
         super(gsm);
 
@@ -77,6 +80,9 @@ public class StoreState extends State{
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         moneyCount = new Label(Hero.getHeroMoney(), new Label.LabelStyle(font, Color.WHITE));
         moneyCount.setPosition((TapCore.width/2) - (29), ((TapCore.height/2)+222));
+
+        // INITIALIZE PREFS
+        prefs = new Prefs();
     }
 
     @Override
@@ -96,7 +102,10 @@ public class StoreState extends State{
                 if(Hero.getMoneyInt() >= 100){ // CAN PURCHASE
                     Hero.upgrade1(100);
                     Hero.setHeroMoney(Hero.getMoneyInt()-100);
+
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
+                    prefs.decreaseMoney(100);
+                    prefs.increaseDamage(100, "up1");
                 }else{
                     System.out.println("MONEY IS INSUFFICIENT");
                 }
@@ -107,7 +116,10 @@ public class StoreState extends State{
                 if(Hero.getMoneyInt() >= 500){
                     Hero.upgrade2();
                     Hero.setHeroMoney(Hero.getMoneyInt()-500);
+
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
+                    prefs.decreaseMoney(500);
+                    prefs.increaseMoneyScaler(2.0);
                 }else{
                     System.out.println("INSUFFICIENT MONEY");
                 }
@@ -118,7 +130,10 @@ public class StoreState extends State{
                 if(Hero.getMoneyInt() >= 1000){ // CAN PURCHASE
                     Hero.upgrade3();
                     Hero.setHeroMoney(Hero.getMoneyInt()-1000);
+
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
+                    prefs.decreaseMoney(1000);
+                    prefs.increaseDamage(2, "up2");
                 }else{
                     System.out.println("INSUFFICIENT MONEY");
                 }

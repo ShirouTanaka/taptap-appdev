@@ -68,7 +68,12 @@ public class MenuState extends State{
         // TEST PREFERENCES HERE
         prefs = new Prefs();
         joseMain.addMoney(prefs.getMoney());
+        joseMain.setCurrentDamage(prefs.getDamage());
+        joseMain.setMoneyScaler(prefs.getScaler());
+
         System.out.println("MONEY = " + Hero.getMoneyInt());
+        System.out.println("DAMAGE = " + joseMain.getCurrentDamage());
+        System.out.println("SCALER = " + Hero.getMoneyScale());
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Prefs {
         savedMoney = prefs.getInteger("money"); // JUST GET THE VALUE OF KEY "MONEY" = 0
 
         if(prefs.getInteger("damage") > baseDamage){
-            savedDamage = prefs.getInteger("damage"); // JUST GET RAW OF VALUE OF KEY "DAMAGE"
+            savedDamage = prefs.getInteger("damage"); // JUST GET RAW VALUE OF KEY "DAMAGE"
         }else{ // IF NO UPGRADES HAVE BEEN BOUGHT
             savedDamage = baseDamage;
         }
@@ -28,10 +28,12 @@ public class Prefs {
 
     // UPGRADES MANIPULATION METHODS
     public void increaseDamage(int value, String flag){
-        if(flag == "up1"){
-            savedDamage += value;
-        }else{ // up2
-            savedDamage *= value;
+        if(flag == "up1"){ // +10
+             savedDamage += value;
+        }else{ // up3
+            value /= 100; // 20% | 0.2
+            double increase = savedDamage * value;
+            savedDamage += increase;
         }
         prefs.putInteger("damage", savedDamage);
         prefs.flush();

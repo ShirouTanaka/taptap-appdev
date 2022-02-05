@@ -52,8 +52,11 @@ public class PlayState extends State {
 
     private Sound atkSound = Gdx.audio.newSound(Gdx.files.internal("attack.mp3"));
     private Prefs prefs;
-
-
+    Texture blank;
+    SpriteBatch sblank;
+    double hp = 900.0;
+    double totalhp = 900.0;
+    int total = 900;
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 
@@ -95,6 +98,8 @@ public class PlayState extends State {
         engkantoHealth.setFontScale((float) .70);
         engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/24)+10), ((cam.position.y/2)+260));
 
+        blank = new Texture("blank.png");
+        sblank = new SpriteBatch();
         // INITIALIZE PREFS
         prefs = new Prefs();
     }
@@ -102,7 +107,8 @@ public class PlayState extends State {
     @Override
     protected void handleInput() {
 
-        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
+//        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
+
         if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
 
@@ -113,9 +119,16 @@ public class PlayState extends State {
             atkSound.play();
 
             engkantoHP = engkantoHP - joseDMG;
-            System.out.println("Engkanto HP: "+ engkantoHP);
+            hp = engkantoHP;
+            System.out.println("Engkanto HP: "+ hp);
+            System.out.println("Engkanto totalHP: "+ totalhp);
             engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
 
+            double tmp;
+            tmp =  hp/totalhp*900.0;
+            System.out.println(tmp);
+            total = (int) tmp;
+            System.out.println(total);
             System.out.println("play pos:" + engkanto.getPosition().x);
 
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
@@ -135,15 +148,16 @@ public class PlayState extends State {
             System.out.println(engkantoHP);
             System.out.println("Chunkyboi is dead :( Resetting time now...");
             engkanto.changeSkin();
-
             timer.resetTime();
+
         }
 
         if (timer.currentTime < 0 && engkantoHP > 0){
             System.out.println("You lost my gamer");
             engkanto.setBaseHealth(900);
             Hero.resetMoneyScaler();
-
+            totalhp = 900;
+            hp = 900;
             gsm.set(new LoseState(gsm));
         }
 
@@ -153,7 +167,8 @@ public class PlayState extends State {
 
             engkanto.setBaseHealth(engkanto.getBaseHealth()*2);
             engkantoHP = engkanto.getBaseHealth();
-
+            totalhp = engkantoHP;
+            hp = engkantoHP;
             System.out.println("new health is " + engkantoHP);
 
             // GIVE MONEY TO JOSE UPON DEFEATING ENEMY
@@ -192,7 +207,8 @@ public class PlayState extends State {
             attacking = false;
         }
 
-        engkantoHealth.draw(sb, (float)(100));
+//        engkantoHealth.draw(sb, (float)(100));
+
         if(attacking){
             sb.draw(engkanto.getTexture(), cam.position.x-40, cam.position.y-20);
             sb.draw(jose.getTexture(), jose.getPosition().x -10,jose.getPosition().y+11);
@@ -203,6 +219,15 @@ public class PlayState extends State {
         backSprite.draw(sb);
         timer.drawTime(sb);
         sb.end();
+
+        //System.out.println("tmp: "+tmp+"total: "+total);
+        sblank.begin();
+
+        System.out.println(total);
+        sblank.draw(blank,cam.position.x-50, cam.position.y+100,total,50);
+        sblank.end();
+
+        //System.out.println("hp: " + hp + " totalhp: "+ totalhp + " width: "+ total) ;
     }
 
 

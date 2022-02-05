@@ -105,7 +105,7 @@ public class StoreState extends State{
 
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
                     prefs.decreaseMoney(100);
-                    prefs.increaseDamage(100, "up1");
+                    prefs.increaseDamage(10, "up1");
                 }else{
                     System.out.println("MONEY IS INSUFFICIENT");
                 }
@@ -133,7 +133,7 @@ public class StoreState extends State{
 
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
                     prefs.decreaseMoney(1000);
-                    prefs.increaseDamage(2, "up2");
+                    prefs.increaseDamage(20, "up3");
                 }else{
                     System.out.println("INSUFFICIENT MONEY");
                 }

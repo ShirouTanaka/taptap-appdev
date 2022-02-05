@@ -37,9 +37,8 @@ public class MenuState extends State{
     OrthographicCamera camera;
     ExtendViewport viewport;
 
-    // TEST DATABASE IMPLEMENTATION
-    private DBSaveHelper db;
-
+    // PREFERENCES VARIABLE
+    public Prefs prefs;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
@@ -66,11 +65,10 @@ public class MenuState extends State{
         // - - > INITIALIZE MAIN JOSE FOR THE WHOLE GAME
         joseMain = new Hero( cam.position.x-40,80);
 
-        // - - > TEST INITIALIZE DATABASE
-        db = new DBSaveHelper();
-        joseMain.addMoney(db.getMoney());
-        System.out.println("MONEY NOW: "+ Hero.getMoneyInt());
-        db.terminateDB();
+        // TEST PREFERENCES HERE
+        prefs = new Prefs();
+        joseMain.addMoney(prefs.getMoney());
+        System.out.println("MONEY = " + Hero.getMoneyInt());
     }
 
     @Override

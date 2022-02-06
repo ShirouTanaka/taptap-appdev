@@ -116,6 +116,10 @@ public class Hero {
         return currentDamage;
     }
 
+    public static String getAttack(int currentDamage){
+        String value = String.valueOf("Total Attack: " + currentDamage);
+        return value; }
+
     public void setCurrentDamage(int currentDamage) {
         this.currentDamage = currentDamage;
     }

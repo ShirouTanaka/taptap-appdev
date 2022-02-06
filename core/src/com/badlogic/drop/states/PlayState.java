@@ -24,11 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
 
 public class PlayState extends State {
     //initialize images here
@@ -36,19 +31,14 @@ public class PlayState extends State {
 //    private Sprite heroSprite;
     private Hero jose;
     private Texture background;
-    private Engkanto chunkyBoi;
-    public boolean attacking;
-    private int chunkyBoiHP;
     private Engkanto engkanto;
 
     private int engkantoHP;
     private int joseDMG;
     private int baseMoney = 10;
 
-    //initiating timer test here
     private Timer timer;
 
-    //back to menu
     private Sprite backSprite;
     private Texture backButton;
 
@@ -62,8 +52,11 @@ public class PlayState extends State {
 
     private Sound atkSound = Gdx.audio.newSound(Gdx.files.internal("attack.mp3"));
     private Prefs prefs;
-
-
+    Texture blank;
+    SpriteBatch sblank;
+    double hp = 900.0;
+    double totalhp = 900.0;
+    int total = 900;
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 
@@ -84,7 +77,7 @@ public class PlayState extends State {
         backButton = new Texture("back.png");
         // BACK BUTTON SPRITE
         backSprite = new Sprite(backButton);
-        backSprite.setPosition((float) ((TapCore.width/6) - (backButton.getWidth()+10)),(float) (TapCore.height)-(70));
+        backSprite.setPosition((float) (cam.position.x-110), (float) (cam.position.y+160));
 
         // - - > CAMERA
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -102,9 +95,11 @@ public class PlayState extends State {
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         engkantoHealth = new Label(Engkanto.getEngkantoHealth(engkantoHP), new Label.LabelStyle(font, Color.WHITE));
 
-        engkantoHealth.setFontScale((float) .75);
-        engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/3)), ((cam.position.y/2)+260));
+        engkantoHealth.setFontScale((float) .70);
+        engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/24)+10), ((cam.position.y/2)+260));
 
+        blank = new Texture("blank.png");
+        sblank = new SpriteBatch();
         // INITIALIZE PREFS
         prefs = new Prefs();
     }
@@ -112,20 +107,28 @@ public class PlayState extends State {
     @Override
     protected void handleInput() {
 
-        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
+//        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
+
         if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
 
-            Rectangle backBounds = new Rectangle(backSprite.getRegionX()-(215),backSprite.getRegionY()+(335),backSprite.getRegionWidth(), backSprite.getRegionHeight());
+            Rectangle backBounds = new Rectangle((cam.position.x-60), (cam.position.y-100),backSprite.getRegionWidth()+100, backSprite.getRegionHeight()+100);
 
             jose.jump();
             //sound test
             atkSound.play();
 
             engkantoHP = engkantoHP - joseDMG;
-            System.out.println("Engkanto HP: "+ engkantoHP);
+            hp = engkantoHP;
+            System.out.println("Engkanto HP: "+ hp);
+            System.out.println("Engkanto totalHP: "+ totalhp);
             engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
 
+            double tmp;
+            tmp =  hp/totalhp*900.0;
+            System.out.println(tmp);
+            total = (int) tmp;
+            System.out.println(total);
             System.out.println("play pos:" + engkanto.getPosition().x);
 
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
@@ -145,15 +148,16 @@ public class PlayState extends State {
             System.out.println(engkantoHP);
             System.out.println("Chunkyboi is dead :( Resetting time now...");
             engkanto.changeSkin();
-
             timer.resetTime();
+
         }
 
         if (timer.currentTime < 0 && engkantoHP > 0){
             System.out.println("You lost my gamer");
             engkanto.setBaseHealth(900);
             Hero.resetMoneyScaler();
-
+            totalhp = 900;
+            hp = 900;
             gsm.set(new LoseState(gsm));
         }
 
@@ -163,7 +167,8 @@ public class PlayState extends State {
 
             engkanto.setBaseHealth(engkanto.getBaseHealth()*2);
             engkantoHP = engkanto.getBaseHealth();
-
+            totalhp = engkantoHP;
+            hp = engkantoHP;
             System.out.println("new health is " + engkantoHP);
 
             // GIVE MONEY TO JOSE UPON DEFEATING ENEMY
@@ -191,6 +196,7 @@ public class PlayState extends State {
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0,0, TapCore.width, TapCore.height);
+
         boolean attacking = false;
         if(Gdx.input.justTouched()){
             sb.draw(engkanto.getEngkantoSprite(), (cam.position.x - (engkanto.getWidth()/2)+10), cam.position.y-40);
@@ -201,8 +207,8 @@ public class PlayState extends State {
             attacking = false;
         }
 
-        //this is a test for the game's timer
-        engkantoHealth.draw(sb, (float)(100));
+//        engkantoHealth.draw(sb, (float)(100));
+
         if(attacking){
             sb.draw(engkanto.getTexture(), cam.position.x-40, cam.position.y-20);
             sb.draw(jose.getTexture(), jose.getPosition().x -10,jose.getPosition().y+11);
@@ -213,6 +219,21 @@ public class PlayState extends State {
         backSprite.draw(sb);
         timer.drawTime(sb);
         sb.end();
+
+        //System.out.println("tmp: "+tmp+"total: "+total);
+        sblank.begin();
+
+        System.out.println(total);
+        if (total <= 900 && total > 500)
+            sblank.setColor(Color.GREEN);
+        else if (total <= 500 && total > 300)
+            sblank.setColor(Color.ORANGE);
+        else
+            sblank.setColor(Color.RED);
+        sblank.draw(blank,cam.position.x-50, cam.position.y+100,total,50);
+        sblank.end();
+
+        //System.out.println("hp: " + hp + " totalhp: "+ totalhp + " width: "+ total) ;
     }
 
 

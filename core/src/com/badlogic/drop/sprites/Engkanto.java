@@ -82,7 +82,7 @@ public class Engkanto {
     }
 
     public static String getEngkantoHealth(int baseHealth){
-        String value = String.valueOf("Engkanto Health: " + baseHealth);
+        String value = String.valueOf("Engkanto HP: " + baseHealth);
         return value;
     }
     public void setBaseHealth(int baseHealth) {

@@ -48,6 +48,7 @@ public class PlayState extends State {
 
     //display
     private Label engkantoHealth;
+    private Label heroAttack;
     private BitmapFont font;
 
     private Sound atkSound = Gdx.audio.newSound(Gdx.files.internal("attack.mp3"));
@@ -98,6 +99,12 @@ public class PlayState extends State {
         engkantoHealth.setFontScale((float) .70);
         engkantoHealth.setPosition(((cam.position.x/2)-(cam.position.x/24)+10), ((cam.position.y/2)+260));
 
+        //display Hero Attack
+        heroAttack = new Label(Hero.getAttack(joseDMG), new Label.LabelStyle(font, Color.WHITE));
+
+        heroAttack.setFontScale((float) .50);
+        heroAttack.setPosition(((cam.position.x/2)-(cam.position.x/24)+10), ((cam.position.y/2)-50));
+
         blank = new Texture("blank.png");
         sblank = new SpriteBatch();
         // INITIALIZE PREFS
@@ -109,7 +116,7 @@ public class PlayState extends State {
 
 //        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
 
-        if(Gdx.input.justTouched()){
+        if(Gdx.input.isTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
 
             Rectangle backBounds = new Rectangle((cam.position.x-60), (cam.position.y-100),backSprite.getRegionWidth()+100, backSprite.getRegionHeight()+100);
@@ -207,7 +214,7 @@ public class PlayState extends State {
             attacking = false;
         }
 
-//        engkantoHealth.draw(sb, (float)(100));
+        heroAttack.draw(sb, (float)(100));
 
         if(attacking){
             sb.draw(engkanto.getTexture(), cam.position.x-40, cam.position.y-20);

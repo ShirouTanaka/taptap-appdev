@@ -42,7 +42,10 @@ public class StoreState extends State{
     private Prefs prefs;
 
     private Music music;
-
+    private Texture pchat;
+    private Texture fchat;
+    private Texture wchat;
+    private boolean purchased, firstp;
     protected StoreState(GameStateManager gsm) {
         super(gsm);
 
@@ -61,6 +64,9 @@ public class StoreState extends State{
         upgrade3 = new Texture("upgrade3.png");
         witchtxt = new Texture("dummy.png");
 
+        pchat = new Texture("chat1.png");
+        fchat = new Texture("chat2.png");
+        wchat = new Texture("welcome.png");
         // - - > CAMERA
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.translate((TapCore.width/2),  TapCore.height/2);
@@ -109,6 +115,7 @@ public class StoreState extends State{
             Rectangle backBounds = new Rectangle((cam.position.x-550), (cam.position.y+700),backSprite.getRegionWidth()+240, backSprite.getRegionHeight()+240);
 
             if(upgrade1Bounds.contains(tmpStore.x, tmpStore.y)) {
+                firstp = true;
                 System.out.println("UPGRADE 1 CLICKED");
                 // SANTELMO'S CURSE
                 if(Hero.getMoneyInt() >= 100){ // CAN PURCHASE
@@ -118,11 +125,14 @@ public class StoreState extends State{
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
                     prefs.decreaseMoney(100);
                     prefs.increaseDamage(10, "up1");
+                    purchased=true;
                 }else{
+                    purchased=false;
                     System.out.println("MONEY IS INSUFFICIENT");
                 }
 
             } if(upgrade2Bounds.contains(tmpStore.x, tmpStore.y)){
+                firstp = true;
                 System.out.println("UPGRADE 2 CLICKED");
                 // MAKILING'S AID
                 if(Hero.getMoneyInt() >= 1000){
@@ -132,11 +142,14 @@ public class StoreState extends State{
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
                     prefs.decreaseMoney(1000);
                     prefs.increaseMoneyScaler(2.0);
+                    purchased=true;
                 }else{
+                    purchased=false;
                     System.out.println("INSUFFICIENT MONEY2");
                 }
 
             } if(upgrade3Bounds.contains(tmpStore.x,tmpStore.y)){
+                firstp = true;
                 System.out.println("UPGRADE 3 CLICKED");
                 // MALAKAS' COURAGE
                 if(Hero.getMoneyInt() >= 700){ // CAN PURCHASE
@@ -146,11 +159,14 @@ public class StoreState extends State{
                     moneyCount.setText(String.valueOf(Hero.getHeroMoney()));
                     prefs.decreaseMoney(700);
                     prefs.increaseDamage(20, "up3");
+                    purchased=true;
                 }else{
+                    purchased=false;
                     System.out.println("INSUFFICIENT MONEY3");
                 }
 
             } if(backBounds.contains(tmpStore.x, tmpStore.y)){
+                firstp = false;
                 System.out.println("BACK BUTTON CLICKED");
                 gsm.set(new MenuState(gsm));
                 music.pause();
@@ -178,13 +194,28 @@ public class StoreState extends State{
         sb.draw(upgrade2, (float) (cam.position.x - (backButton.getWidth() / 2)+48), (float) (cam.position.y+180));
         sb.draw(upgrade3, (float) (cam.position.x - (backButton.getWidth() / 2)+50), (float) (cam.position.y+75));
         sb.draw(witchtxt, (float) (cam.position.x - (backButton.getWidth() / 2)+170), (float) (cam.position.y));
+
         moneyCount.draw(sb, (float)(100));
 
         backSprite.draw(sb); // DRAW BACK BUTTON
         buySprite1.draw(sb);
         buySprite2.draw(sb);
         buySprite3.draw(sb);
+        if(firstp == true){
+            if(purchased==true){
+                sb.draw(pchat, (float) (cam.position.x - (pchat.getWidth() / 2)+150), (float) (cam.position.y+45));
+            }
+            else if(purchased==false){
+                sb.draw(fchat, (float) (cam.position.x - (pchat.getWidth() / 2)+150), (float) (cam.position.y+45));
+            }
+        }else{
+            sb.draw(wchat, (float) (cam.position.x - (pchat.getWidth() / 2)+150), (float) (cam.position.y+45));
+        }
+
+
         sb.end();
+
+
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.badlogic.drop.states;
 import com.badlogic.drop.TapCore;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -39,6 +40,8 @@ public class StoreState extends State{
     private Sprite witchsprite;
     // PREFS VARIABLE
     private Prefs prefs;
+
+    private Music music;
 
     protected StoreState(GameStateManager gsm) {
         super(gsm);
@@ -87,6 +90,11 @@ public class StoreState extends State{
 
         // INITIALIZE PREFS
         prefs = new Prefs();
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("store_ambience.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.4f);
+        music.play();
     }
 
     @Override
@@ -145,6 +153,8 @@ public class StoreState extends State{
             } if(backBounds.contains(tmpStore.x, tmpStore.y)){
                 System.out.println("BACK BUTTON CLICKED");
                 gsm.set(new MenuState(gsm));
+                music.pause();
+                music.stop();
             }
 
         }
@@ -189,6 +199,7 @@ public class StoreState extends State{
         buyButton2.dispose();
         buyButton3.dispose();
         chocnut.dispose();
+        music.dispose();
     }
 
 }

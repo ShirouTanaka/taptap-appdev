@@ -3,6 +3,7 @@ package com.badlogic.drop.states;
 import com.badlogic.drop.TapCore;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -40,6 +41,8 @@ public class MenuState extends State{
     // PREFERENCES VARIABLE
     public Prefs prefs;
 
+    private Music music;
+
     public MenuState(GameStateManager gsm) {
         super(gsm);
         //load images here
@@ -74,6 +77,11 @@ public class MenuState extends State{
         System.out.println("MONEY = " + Hero.getMoneyInt());
         System.out.println("DAMAGE = " + joseMain.getCurrentDamage());
         System.out.println("SCALER = " + Hero.getMoneyScale());
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("BLACK_AND_WHITE_WORLD_320_kbps.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.6f);
+        music.play();
     }
 
     @Override
@@ -92,12 +100,16 @@ public class MenuState extends State{
             // textureheight is the height of the texture (you can get it with texture.getHeight() or textureRegion.getRegionhHeight() if you have a texture region
             if(playBounds.contains(tmp.x,tmp.y)) {
                 gsm.set(new PlayState(gsm,joseMain));
+                music.pause();
+                music.stop();
                 System.out.println("button click");
                 System.out.println("moving to playState");
             }
             if(storeBounds.contains(tmp.x,tmp.y)){
                 gsm.set(new StoreState(gsm));
                 System.out.println("BUTTON CLICK STORE");
+                music.pause();
+                music.stop();
             }
         }
     }
@@ -129,6 +141,7 @@ public class MenuState extends State{
         playBtn.dispose();
         title.dispose();
         storeButton.dispose();
+        music.dispose();
     }
 
 }

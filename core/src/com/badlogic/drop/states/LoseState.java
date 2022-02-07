@@ -5,6 +5,7 @@ import com.badlogic.drop.sprites.Engkanto;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -33,6 +34,8 @@ public class LoseState extends State{
     private Label clickAnywhere;
     private BitmapFont font;
 
+    private Music music;
+
     public LoseState(GameStateManager gsm) {
         super(gsm);
 
@@ -56,6 +59,11 @@ public class LoseState extends State{
         clickAnywhere.setFontScale((float) .55);
         clickAnywhere.setPosition(((cam.position.x/2)-(cam.position.x/5)), ((cam.position.y/2)+100));
 
+        music = Gdx.audio.newMusic(Gdx.files.internal("Where-My-Home-Is.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.7f);
+        music.play();
+
     }
     @Override
     protected void handleInput() {
@@ -64,6 +72,8 @@ public class LoseState extends State{
             gsm.set(new MenuState(gsm));
             System.out.println("button click");
             System.out.println("moving to MenuState");
+            music.pause();
+            music.stop();
 
         }
 
@@ -94,6 +104,7 @@ public class LoseState extends State{
     public void dispose() {
         background.dispose();
         title.dispose();
+        music.dispose();
 
     }
 }

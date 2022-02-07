@@ -103,7 +103,7 @@ public class PlayState extends State {
         heroAttack = new Label(Hero.getAttack(joseDMG), new Label.LabelStyle(font, Color.WHITE));
 
         heroAttack.setFontScale((float) .50);
-        heroAttack.setPosition(((cam.position.x/2)-(cam.position.x/24)+10), ((cam.position.y/2)-50));
+        heroAttack.setPosition(((cam.position.x/2)-(cam.position.x/24)+10), ((cam.position.y/2)-80));
 
         blank = new Texture("blank.png");
         sblank = new SpriteBatch();

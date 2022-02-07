@@ -5,6 +5,7 @@ import com.badlogic.drop.sprites.Engkanto;
 import com.badlogic.drop.sprites.Hero;
 import com.badlogic.drop.sprites.Timer;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -58,6 +59,9 @@ public class PlayState extends State {
     double hp = 900.0;
     double totalhp = 900.0;
     int total = 900;
+
+    private Music music;
+
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 
@@ -109,6 +113,11 @@ public class PlayState extends State {
         sblank = new SpriteBatch();
         // INITIALIZE PREFS
         prefs = new Prefs();
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("Royalty_Free_Final_Boss_Music_160k.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.4f);
+        music.play();
     }
 
     @Override
@@ -141,6 +150,8 @@ public class PlayState extends State {
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
                 System.out.println("BACK BUTTON CLICKED");
                 atkSound.stop();
+                music.pause();
+                music.stop();
                 gsm.set(new MenuState(gsm));
                 engkanto.setBaseHealth(900); // RESET FOR EASIER GRIND
                 Hero.resetMoneyScaler();
@@ -165,6 +176,8 @@ public class PlayState extends State {
             Hero.resetMoneyScaler();
             totalhp = 900;
             hp = 900;
+            music.pause();
+            music.stop();
             gsm.set(new LoseState(gsm));
         }
 
@@ -246,6 +259,6 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-
+        music.dispose();
     }
 }

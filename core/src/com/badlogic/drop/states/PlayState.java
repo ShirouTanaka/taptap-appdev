@@ -62,6 +62,8 @@ public class PlayState extends State {
 
     private Music music;
 
+    private int count = 0;
+
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 
@@ -125,7 +127,7 @@ public class PlayState extends State {
 
 //        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
 
-        if(Gdx.input.justTouched()){
+        if(Gdx.input.isTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
 
             Rectangle backBounds = new Rectangle((cam.position.x-60), (cam.position.y-100),backSprite.getRegionWidth()+100, backSprite.getRegionHeight()+100);
@@ -167,6 +169,17 @@ public class PlayState extends State {
             System.out.println("Chunkyboi is dead :( Resetting time now...");
             engkanto.changeSkin();
             timer.resetTime();
+
+            count++;
+            if (count < 2){
+                background.dispose();
+                background = new Texture(TapCore.bgOptions[count]);
+            }
+            else {
+                background.dispose();
+                count = 0;
+                background = new Texture(TapCore.bgOptions[count]);
+            }
 
         }
 

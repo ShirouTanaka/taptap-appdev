@@ -62,7 +62,7 @@ public class StoreState extends State{
         upgrade1 = new Texture("upgrade1.png");
         upgrade2 = new Texture("upgrade2.png");
         upgrade3 = new Texture("upgrade3.png");
-        witchtxt = new Texture("dummy.png");
+        witchtxt = new Texture("witch girl.png");
 
         pchat = new Texture("chat1.png");
         fchat = new Texture("chat2.png");
@@ -92,7 +92,7 @@ public class StoreState extends State{
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
         moneyCount = new Label(Hero.getHeroMoney(), new Label.LabelStyle(font, Color.WHITE));
         moneyCount.setFontScale(0.5f,0.5f);
-        moneyCount.setPosition((float) (cam.position.x - (moneyCount.getWidth() / 2)+115), (float) (cam.position.y+15));
+        moneyCount.setPosition((float) (cam.position.x - (moneyCount.getWidth() / 2)+125), (float) (cam.position.y+15));
 
         // INITIALIZE PREFS
         prefs = new Prefs();
@@ -193,7 +193,7 @@ public class StoreState extends State{
         sb.draw(upgrade1, (float) (cam.position.x - (backButton.getWidth() / 2)+50), (float) (cam.position.y+275));
         sb.draw(upgrade2, (float) (cam.position.x - (backButton.getWidth() / 2)+48), (float) (cam.position.y+180));
         sb.draw(upgrade3, (float) (cam.position.x - (backButton.getWidth() / 2)+50), (float) (cam.position.y+75));
-        sb.draw(witchtxt, (float) (cam.position.x - (backButton.getWidth() / 2)+170), (float) (cam.position.y));
+
 
         moneyCount.draw(sb, (float)(100));
 
@@ -201,21 +201,25 @@ public class StoreState extends State{
         buySprite1.draw(sb);
         buySprite2.draw(sb);
         buySprite3.draw(sb);
-        if(firstp == true){
-            if(purchased==true){
-                sb.draw(pchat, (float) (cam.position.x - (pchat.getWidth() / 2)+150), (float) (cam.position.y+45));
-            }
-            else if(purchased==false){
-                sb.draw(fchat, (float) (cam.position.x - (pchat.getWidth() / 2)+150), (float) (cam.position.y+45));
-            }
-        }else{
-            sb.draw(wchat, (float) (cam.position.x - (pchat.getWidth() / 2)+150), (float) (cam.position.y+45));
-        }
 
 
         sb.end();
+        sb.begin();
+        sb.draw(witchtxt,(cam.position.x - (pchat.getWidth() / 2)+300), (float) (cam.position.y-5), 106,130);
+        sb.end();
 
-
+        sb.begin();
+        if(firstp == true){
+            if(purchased==true){
+                sb.draw(pchat, (float) (cam.position.x - (pchat.getWidth() / 2)+240), (float) (cam.position.y)+35,106,55);
+            }
+            else if(purchased==false){
+                sb.draw(fchat, (float) (cam.position.x - (pchat.getWidth() / 2)+240), (float) (cam.position.y)+35,106,55);
+            }
+        }else{
+            sb.draw(wchat, (float) (cam.position.x - (pchat.getWidth() / 2)+240), (float) (cam.position.y)+35,106,55);
+        }
+        sb.end();
     }
 
     @Override

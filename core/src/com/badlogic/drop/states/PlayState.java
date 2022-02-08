@@ -63,7 +63,7 @@ public class PlayState extends State {
     private Music music;
 
     private int count = 0;
-
+    private int dftcount = 0;
     public PlayState(GameStateManager gsm, Hero xjose) {
         super(gsm);
 
@@ -96,7 +96,6 @@ public class PlayState extends State {
 
         //same we can add but based on shop upgrades
         joseDMG = jose.getCurrentDamage();
-        System.out.println(jose.getCurrentDamage());
 
         //display engkanto health
         font = new BitmapFont(Gdx.files.internal("barlow.fnt"),Gdx.files.internal("barlow.png"), false);
@@ -144,10 +143,10 @@ public class PlayState extends State {
 
             double tmp;
             tmp =  hp/totalhp*900.0;
-            System.out.println(tmp);
+            //System.out.println(tmp);
             total = (int) tmp;
-            System.out.println(total);
-            System.out.println("play pos:" + engkanto.getPosition().x);
+            //System.out.println(total);
+            //System.out.println("play pos:" + engkanto.getPosition().x);
 
             if(backBounds.contains(tmpPlay.x, tmpPlay.y)){
                 System.out.println("BACK BUTTON CLICKED");
@@ -165,22 +164,23 @@ public class PlayState extends State {
         //this area runs and continuously monitors the state in deltaTime
         //this is the winning statement
         if (timer.currentTime > 0 && engkantoHP <= 0){
-            System.out.println(engkantoHP);
-            System.out.println("Chunkyboi is dead :( Resetting time now...");
+            //System.out.println(engkantoHP);
+            //System.out.println("Chunkyboi is dead :( Resetting time now...");
             engkanto.changeSkin();
             timer.resetTime();
 
             count++;
-            if (count < 2){
+            System.out.println("COUNT "+count);
+            System.out.println("DFTCOUNT "+dftcount);
+            if (count== 3){
                 background.dispose();
-                background = new Texture(TapCore.bgOptions[count]);
+                dftcount++;
+                if(dftcount>=3) {
+                    dftcount = 0;
+                }
+                count=0;
+                background = new Texture(TapCore.bgOptions[dftcount]);
             }
-            else {
-                background.dispose();
-                count = 0;
-                background = new Texture(TapCore.bgOptions[count]);
-            }
-
         }
 
         if (timer.currentTime < 0 && engkantoHP > 0){
@@ -255,8 +255,6 @@ public class PlayState extends State {
 
         //System.out.println("tmp: "+tmp+"total: "+total);
         sblank.begin();
-
-        System.out.println(total);
         if (total <= 900 && total > 500)
             sblank.setColor(Color.GREEN);
         else if (total <= 500 && total > 300)

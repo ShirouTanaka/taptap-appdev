@@ -28,7 +28,7 @@ public class TapCore extends ApplicationAdapter {
 	public static final int width = 480;
 	public static final int height = 800;
 //	public static boolean heroFlag = false;
-
+	public static boolean bsplash = false;
 	public static final String title = "Tap-A-Pon";
 
 	private GameStateManager gsm;

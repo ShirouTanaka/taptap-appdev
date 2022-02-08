@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 //import com.badlogic.gdx.sql.DatabaseCursor;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -42,6 +43,8 @@ public class MenuState extends State{
     public Prefs prefs;
 
     private Music music;
+    private Texture splash;
+    long startTime;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
@@ -50,7 +53,7 @@ public class MenuState extends State{
         playBtn = new Texture("playBtn1.png");
         title = new Texture("title1.png");
         storeButton = new Texture("storeBtn1.png");
-
+        splash = new Texture("splashscreen.png");
         // - - > CAMERA
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.translate((TapCore.width/2),  (TapCore.height/2));
@@ -82,6 +85,7 @@ public class MenuState extends State{
         music.setLooping(true);
         music.setVolume(0.6f);
         music.play();
+        startTime = TimeUtils.millis();
     }
 
     @Override
@@ -122,16 +126,42 @@ public class MenuState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
-        //load the things needed to be rendered with .begin
-        sb.begin();
-        sb.setProjectionMatrix(cam.combined);
-        //start drawing the things
-        sb.draw(background, 0,0, TapCore.width, TapCore.height);
-        sb.draw(title, cam.position.x - (title.getWidth()/2), cam.position.y+40);
-        //sb.draw(playBtn, (TapCore.width/2) - (playBtn.getWidth() / 2), (TapCore.height/2));
-        playSprite.draw(sb);
-        storeSprite.draw(sb);
-        sb.end();
+
+        if(TapCore.bsplash==false){
+            if(TimeUtils.millis() - startTime <= 5000) {
+                sb.begin();
+                sb.draw(splash, 0,0, 1080, 2220);
+                sb.end();
+            }
+            else{
+                TapCore.bsplash=true;
+                //load the things needed to be rendered with .begin
+                sb.begin();
+                sb.setProjectionMatrix(cam.combined);
+                //start drawing the things
+
+
+                sb.draw(background, 0,0, TapCore.width, TapCore.height);
+                sb.draw(title, cam.position.x - (title.getWidth()/2), cam.position.y+40);
+                //sb.draw(playBtn, (TapCore.width/2) - (playBtn.getWidth() / 2), (TapCore.height/2));
+                playSprite.draw(sb);
+                storeSprite.draw(sb);
+                sb.end();
+            }
+        }else{
+            //load the things needed to be rendered with .begin
+            sb.begin();
+            sb.setProjectionMatrix(cam.combined);
+            //start drawing the things
+
+
+            sb.draw(background, 0,0, TapCore.width, TapCore.height);
+            sb.draw(title, cam.position.x - (title.getWidth()/2), cam.position.y+40);
+            //sb.draw(playBtn, (TapCore.width/2) - (playBtn.getWidth() / 2), (TapCore.height/2));
+            playSprite.draw(sb);
+            storeSprite.draw(sb);
+            sb.end();
+        }
     }
 
 

@@ -94,11 +94,13 @@ public class Engkanto {
         i++;
         //change the skin
         if (i < 5) {
+            engkanto.dispose();
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width / 2) - (engkanto.getWidth() / 2));
 
         } else {
             i = 0;
+            engkanto.dispose();
             engkanto = new Texture(TapCore.pathOptions[i]);
             position.x = (float) ((TapCore.width/2) - (engkanto.getWidth()/2));
         }

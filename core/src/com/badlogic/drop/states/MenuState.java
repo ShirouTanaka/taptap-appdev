@@ -134,6 +134,7 @@ public class MenuState extends State{
                 sb.end();
             }
             else{
+                splash.dispose();
                 TapCore.bsplash=true;
                 //load the things needed to be rendered with .begin
                 sb.begin();

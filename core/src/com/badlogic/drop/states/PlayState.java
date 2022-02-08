@@ -126,7 +126,7 @@ public class PlayState extends State {
 
 //        engkantoHealth.setText(String.valueOf(Engkanto.getEngkantoHealth(engkantoHP)));
 
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.justTouched()){
             Vector3 tmpPlay = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
 
             Rectangle backBounds = new Rectangle((cam.position.x-60), (cam.position.y-100),backSprite.getRegionWidth()+100, backSprite.getRegionHeight()+100);
@@ -271,5 +271,8 @@ public class PlayState extends State {
     @Override
     public void dispose() {
         music.dispose();
+        background.dispose();
+        jose.dispose();
+        engkanto.dispose();
     }
 }
